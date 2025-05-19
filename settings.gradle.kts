@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ShelfyBooks"
 include(":app")
- 
+include(":data")
