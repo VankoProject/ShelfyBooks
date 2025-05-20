@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.kliachenko.data.localCache.MapBook
+import com.kliachenko.data.mapper.BookMapper
 
 @Entity(
     tableName = "books",
@@ -42,4 +44,16 @@ data class BookCache(
 
     @ColumnInfo(name = "rank")
     val rank: Int
-)
+) : MapBook {
+    override fun <T : Any> map(categoryName: String, mapper: BookMapper<T>): T {
+        return mapper.map(
+            categoryListName = categoryListName,
+            title = title,
+            description = description,
+            author = author,
+            publisher = publisher,
+            imageUrl = imageUrl,
+            rank = rank
+        )
+    }
+}

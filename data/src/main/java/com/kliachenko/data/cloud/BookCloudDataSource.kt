@@ -43,7 +43,7 @@ interface BookCloudDataSource {
                                 imageUrl = "https://example.com/fake.jpg",
                                 rank = 1,
                                 buyLinks = listOf(
-                                    BuyLinkCloud(
+                                    SellerLinkCloud(
                                         sellerName = "Amazon",
                                         url = "https://example.com/buy"
                                     )
@@ -57,7 +57,7 @@ interface BookCloudDataSource {
                                 imageUrl = "https://example.com/second.jpg",
                                 rank = 2,
                                 buyLinks = listOf(
-                                    BuyLinkCloud(
+                                    SellerLinkCloud(
                                         sellerName = "Apple Books",
                                         url = "https://example.com/buy2"
                                     )

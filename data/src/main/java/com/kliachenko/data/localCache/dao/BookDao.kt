@@ -12,7 +12,7 @@ import com.kliachenko.data.localCache.entity.BookWithSellers
 interface BookDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(books: List<BookCache>)
+    suspend fun insert(books: List<BookCache>): List<Long>
 
     @Transaction
     @Query("Select * From books Where category_list_name =:categoryListName Order by rank ASC")

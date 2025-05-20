@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.kliachenko.data.localCache.MapSeller
+import com.kliachenko.data.mapper.SellerMapper
 
 @Entity(
     tableName = "sellers",
@@ -28,4 +30,12 @@ data class SellerLinkCache(
 
     @ColumnInfo(name = "url")
     val url: String
-)
+) : MapSeller {
+    override fun <T : Any> map(bookId: Int, mapper: SellerMapper<T>): T {
+        return mapper.map(
+            bookId = bookId,
+            sellerName = sellerName,
+            url = url
+        )
+    }
+}
