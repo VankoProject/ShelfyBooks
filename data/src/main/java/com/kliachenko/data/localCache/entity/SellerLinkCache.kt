@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "buy_links",
+    tableName = "sellers",
     foreignKeys = [ForeignKey(
         entity = BookCache::class,
         parentColumns = ["id"],
