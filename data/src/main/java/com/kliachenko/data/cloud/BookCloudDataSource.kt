@@ -9,10 +9,9 @@ interface BookCloudDataSource {
 
     class Base @Inject constructor(
         private val service: BooksApiService,
-        private val apiKey: String,
     ) : BookCloudDataSource {
         override suspend fun overview(): BestsellersResult {
-            return service.overview(apiKey).result
+            return service.overview().result
         }
     }
 

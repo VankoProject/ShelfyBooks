@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.bouncycastle.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -11,6 +13,12 @@ android {
 
     defaultConfig {
         minSdk = 24
+
+        buildConfigField(
+            "String",
+            "NYT_API_KEY",
+            "\"${rootProject.extra["NYT_API_KEY"]}\""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -31,6 +39,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 

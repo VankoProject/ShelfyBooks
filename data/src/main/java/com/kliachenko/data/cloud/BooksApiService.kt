@@ -6,11 +6,6 @@ import retrofit2.http.Query
 interface BooksApiService {
 
     @GET("lists/overview.json")
-    suspend fun overview(
-        @Query(QUERY_PARAM_API_KEY) apiKey: String
-    ): OverviewResponse
+    suspend fun overview(): OverviewResponse
 
-    companion object {
-        private const val QUERY_PARAM_API_KEY = "api-key"
-    }
 }
