@@ -1,7 +1,6 @@
-package com.kliachenko.data.categories
+package com.kliachenko.data.cloud
 
 import com.google.gson.annotations.SerializedName
-import com.kliachenko.data.books.BookCloud
 
 data class OverviewResponse(
     @SerializedName("results")

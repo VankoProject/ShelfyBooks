@@ -1,4 +1,4 @@
-package com.kliachenko.data.books
+package com.kliachenko.data.cloud
 
 import com.google.gson.annotations.SerializedName
 
