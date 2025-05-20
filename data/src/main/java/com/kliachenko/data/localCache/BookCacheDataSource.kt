@@ -10,7 +10,7 @@ import javax.inject.Inject
 class BookCacheDataSource {
 
     interface Save {
-        suspend fun save(books: List<BookCache>)
+        suspend fun save(books: List<BookCache>): List<Long>
         suspend fun save(sellers: List<SellerLinkCache>)
     }
 
@@ -25,8 +25,8 @@ class BookCacheDataSource {
         private val sellerDao: SellerDao,
     ) : Mutable {
 
-        override suspend fun save(books: List<BookCache>) {
-            bookDao.insert(books)
+        override suspend fun save(books: List<BookCache>): List<Long> {
+            return bookDao.insert(books)
         }
 
         override suspend fun save(sellers: List<SellerLinkCache>) {
@@ -36,4 +36,5 @@ class BookCacheDataSource {
         override suspend fun read(categoryListName: String) =
             bookDao.booksWithSellers(categoryListName)
     }
+
 }
