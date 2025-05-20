@@ -1,4 +1,4 @@
-import org.gradle.internal.impldep.org.bouncycastle.util.Properties
+
 
 plugins {
     alias(libs.plugins.android.library)
