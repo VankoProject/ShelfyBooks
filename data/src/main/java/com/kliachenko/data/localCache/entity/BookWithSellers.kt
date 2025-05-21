@@ -9,7 +9,7 @@ data class BookWithSellers(
     @Embedded
     val book: BookCache,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "bookId",
         entityColumn = "book_id"
     )
     val sellers: List<SellerLinkCache>

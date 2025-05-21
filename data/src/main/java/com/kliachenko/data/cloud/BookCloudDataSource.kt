@@ -36,13 +36,14 @@ interface BookCloudDataSource {
                         updatedPeriod = "WEEKLY",
                         booksList = listOf(
                             BookCloud(
+                                bookId = "123",
                                 title = "First Fake Book Title",
                                 description = "First fake book for testing.",
                                 author = "Jane Doe",
                                 publisher = "Fake House",
                                 imageUrl = "https://example.com/fake.jpg",
                                 rank = 1,
-                                buyLinks = listOf(
+                                sellers = listOf(
                                     SellerLinkCloud(
                                         sellerName = "Amazon",
                                         url = "https://example.com/buy"
@@ -50,13 +51,14 @@ interface BookCloudDataSource {
                                 )
                             ),
                             BookCloud(
+                                bookId = "234",
                                 title = "Second Fake Book Title",
                                 description = "Second fake book for testing.",
                                 author = "John Smith",
                                 publisher = "Fake House",
                                 imageUrl = "https://example.com/second.jpg",
                                 rank = 2,
-                                buyLinks = listOf(
+                                sellers = listOf(
                                     SellerLinkCloud(
                                         sellerName = "Apple Books",
                                         url = "https://example.com/buy2"

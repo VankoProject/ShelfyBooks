@@ -16,7 +16,7 @@ interface MapBook {
 }
 
 interface MapSeller {
-    fun <T: Any> map(bookId: Int, mapper: SellerMapper<T>): T
+    fun <T: Any> map(bookId: String, mapper: SellerMapper<T>): T
 
 }
 

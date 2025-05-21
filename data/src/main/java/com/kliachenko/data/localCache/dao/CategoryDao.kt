@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.kliachenko.data.localCache.entity.CategoryCache
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoryDao {
@@ -13,6 +14,6 @@ interface CategoryDao {
     suspend fun insert(categories: List<CategoryCache>)
 
     @Query("Select * From categories")
-    suspend fun categories(): List<CategoryCache>
+    fun categories(): Flow<List<CategoryCache>>
 
 }

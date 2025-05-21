@@ -20,17 +20,17 @@ data class BestsellersResult(
 
 data class CategoryCloud(
     @SerializedName("list_name")
-    val listName: String,
+    private val listName: String,
     @SerializedName("published_date")
-    val publishedDate: String,
+    private val publishedDate: String,
     @SerializedName("display_name")
-    val categoryName: String,
+    private val categoryName: String,
     @SerializedName("normal_list_ends_at")
-    val booksCount: Int,
+    private val booksCount: Int,
     @SerializedName("updated")
-    val updatedPeriod: String,
+    private val updatedPeriod: String,
     @SerializedName("books")
-    val booksList: List<BookCloud>
+    private val booksList: List<BookCloud>
 ) : MapCategory {
     override fun <T : Any> map(mapper: CategoryMapper<T>): T {
         return mapper.map(
@@ -41,6 +41,10 @@ data class CategoryCloud(
             updatedPeriod = updatedPeriod
         )
     }
+
+    fun bookList(): List<BookCloud> = booksList
+
+    fun categoryId(): String = listName
 
 }
 

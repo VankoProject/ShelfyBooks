@@ -6,18 +6,17 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.kliachenko.data.core.HandleError
 import com.kliachenko.data.core.ProvideExceptionMessage
 import com.kliachenko.data.core.ProvideResources
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-interface HandleAuthException {
+interface HandleAuthException: HandleError<String> {
 
     fun handle(exception: FirebaseAuthException): String
 
     fun handle(exception: GetCredentialException): String
-
-    fun handle(exception: Exception): String
 
     fun userNotFound(): String
 

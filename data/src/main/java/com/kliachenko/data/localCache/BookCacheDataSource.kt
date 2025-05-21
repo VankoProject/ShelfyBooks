@@ -1,39 +1,32 @@
 package com.kliachenko.data.localCache
 
 import com.kliachenko.data.localCache.dao.BookDao
-import com.kliachenko.data.localCache.dao.SellerDao
 import com.kliachenko.data.localCache.entity.BookCache
 import com.kliachenko.data.localCache.entity.BookWithSellers
-import com.kliachenko.data.localCache.entity.SellerLinkCache
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BookCacheDataSource {
 
     interface Save {
-        suspend fun save(books: List<BookCache>): List<Long>
-        suspend fun save(sellers: List<SellerLinkCache>)
+        suspend fun save(books: List<BookCache>)
     }
 
     interface Read {
-        suspend fun read(categoryListName: String): List<BookWithSellers>
+        fun read(categoryListName: String): Flow<List<BookWithSellers>>
     }
 
     interface Mutable : Save, Read
 
     class Base @Inject constructor(
         private val bookDao: BookDao,
-        private val sellerDao: SellerDao,
     ) : Mutable {
 
-        override suspend fun save(books: List<BookCache>): List<Long> {
+        override suspend fun save(books: List<BookCache>) {
             return bookDao.insert(books)
         }
 
-        override suspend fun save(sellers: List<SellerLinkCache>) {
-            sellerDao.insert(sellers)
-        }
-
-        override suspend fun read(categoryListName: String) =
+        override fun read(categoryListName: String) =
             bookDao.booksWithSellers(categoryListName)
     }
 

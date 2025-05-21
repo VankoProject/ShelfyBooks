@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.kliachenko.data.localCache.AppDataBase
 import com.kliachenko.data.localCache.BookCacheDataSource
 import com.kliachenko.data.localCache.CategoryCacheDataSource
+import com.kliachenko.data.localCache.SellersCacheDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -28,6 +29,12 @@ abstract class CacheModule {
     abstract fun bindBookCacheDataSource(
         impl: BookCacheDataSource.Base
     ): BookCacheDataSource.Mutable
+
+    @Binds
+    @Singleton
+    abstract fun bindSellersCacheDataSource(
+        impl: SellersCacheDataSource.Base
+    ): SellersCacheDataSource.Mutable
 
     companion object {
 

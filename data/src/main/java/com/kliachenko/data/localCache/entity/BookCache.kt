@@ -21,8 +21,8 @@ import com.kliachenko.data.mapper.BookMapper
     indices = [Index("category_list_name")]
 )
 data class BookCache(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val bookId: String,
 
     @ColumnInfo(name = "category_list_name")
     val categoryListName: String,
@@ -47,6 +47,7 @@ data class BookCache(
 ) : MapBook {
     override fun <T : Any> map(categoryName: String, mapper: BookMapper<T>): T {
         return mapper.map(
+            bookId = bookId,
             categoryListName = categoryListName,
             title = title,
             description = description,
@@ -56,4 +57,5 @@ data class BookCache(
             rank = rank
         )
     }
+
 }
