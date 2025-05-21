@@ -6,14 +6,14 @@ import javax.inject.Inject
 interface SellerMapper<T : Any> {
 
     fun map(
-        bookId: Int,
+        bookId: String,
         sellerName: String,
         url: String,
     ): T
 
     interface ToCache : SellerMapper<SellerLinkCache> {
         class Base @Inject constructor() : ToCache {
-            override fun map(bookId: Int, sellerName: String, url: String) =
+            override fun map(bookId: String, sellerName: String, url: String) =
                 SellerLinkCache(
                     bookId = bookId,
                     sellerName = sellerName,
@@ -24,7 +24,7 @@ interface SellerMapper<T : Any> {
 
     interface ToDomain: SellerMapper<SellerDomain> {
         class Base @Inject constructor(): ToDomain {
-            override fun map(bookId: Int, sellerName: String, url: String): SellerDomain {
+            override fun map(bookId: String, sellerName: String, url: String): SellerDomain {
                 return SellerDomain(name = sellerName, url = url)
             }
 

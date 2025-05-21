@@ -7,23 +7,26 @@ import com.kliachenko.data.mapper.BookMapper
 import com.kliachenko.data.mapper.SellerMapper
 
 data class BookCloud(
+    @SerializedName("primary_isbn13")
+    private val bookId: String,
     @SerializedName("title")
-    val title: String,
+    private val title: String,
     @SerializedName("description")
-    val description: String,
+    private val description: String,
     @SerializedName("author")
-    val author: String,
+    private val author: String,
     @SerializedName("publisher")
-    val publisher: String,
+    private val publisher: String,
     @SerializedName("book_image")
-    val imageUrl: String,
+    private val imageUrl: String,
     @SerializedName("rank")
-    val rank: Int,
+    private val rank: Int,
     @SerializedName("buy_links")
-    val buyLinks: List<SellerLinkCloud>
+    private val sellers: List<SellerLinkCloud>
 ) : MapBook {
     override fun <T : Any> map(categoryName: String, mapper: BookMapper<T>): T {
         return mapper.map(
+            bookId = bookId,
             categoryListName = categoryName,
             title = title,
             description = description,
@@ -34,15 +37,18 @@ data class BookCloud(
         )
     }
 
+    fun sellers(): List<SellerLinkCloud> = sellers
+
+    fun bookId() = bookId
 }
 
 data class SellerLinkCloud(
     @SerializedName("name")
-    val sellerName: String,
+    private val sellerName: String,
     @SerializedName("url")
-    val url: String,
+    private val url: String,
 ) : MapSeller {
-    override fun <T : Any> map(bookId: Int, mapper: SellerMapper<T>): T {
+    override fun <T : Any> map(bookId: String, mapper: SellerMapper<T>): T {
         return mapper.map(
             bookId = bookId,
             sellerName = sellerName,

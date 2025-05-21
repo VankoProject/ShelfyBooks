@@ -2,6 +2,7 @@ package com.kliachenko.data.localCache
 
 import com.kliachenko.data.localCache.dao.CategoryDao
 import com.kliachenko.data.localCache.entity.CategoryCache
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CategoryCacheDataSource {
@@ -11,7 +12,7 @@ class CategoryCacheDataSource {
     }
 
     interface Read {
-        suspend fun read(): List<CategoryCache>
+        fun read(): Flow<List<CategoryCache>>
     }
 
     interface Mutable : Save, Read
@@ -23,7 +24,7 @@ class CategoryCacheDataSource {
             categoryDao.insert(categories)
         }
 
-        override suspend fun read() = categoryDao.categories()
+        override fun read() = categoryDao.categories()
 
     }
 

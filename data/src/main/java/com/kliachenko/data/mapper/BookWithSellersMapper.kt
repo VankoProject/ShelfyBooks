@@ -24,7 +24,7 @@ interface BookWithSellersMapper<T> {
                     imageUrl = book.imageUrl,
                     rank = book.rank,
                     sellers = sellers.map {
-                        it.map(book.id, sellerMapper)
+                        it.map(book.bookId, sellerMapper)
                     }
                 )
             }

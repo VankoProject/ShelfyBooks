@@ -7,6 +7,7 @@ import com.kliachenko.data.authService.Auth
 import com.kliachenko.data.authService.HandleAuthException
 import com.kliachenko.data.authService.ProvideGoogleCredentialRequest
 import com.kliachenko.data.authService.ProvideNonce
+import com.kliachenko.data.core.HandleError
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -28,7 +29,12 @@ abstract class AuthModule {
     ): ProvideGoogleCredentialRequest
 
     @Binds
+    @Singleton
     abstract fun bindHandleAuthException(impl: HandleAuthException.Base): HandleAuthException
+
+    @Binds
+    @Singleton
+    abstract fun bindHandleError(impl: HandleAuthException.Base): HandleError<String>
 
     companion object {
 

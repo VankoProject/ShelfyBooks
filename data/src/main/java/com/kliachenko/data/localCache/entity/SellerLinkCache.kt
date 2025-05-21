@@ -12,7 +12,7 @@ import com.kliachenko.data.mapper.SellerMapper
     tableName = "sellers",
     foreignKeys = [ForeignKey(
         entity = BookCache::class,
-        parentColumns = ["id"],
+        parentColumns = ["bookId"],
         childColumns = ["book_id"],
         onDelete = ForeignKey.CASCADE
     )],
@@ -23,7 +23,7 @@ data class SellerLinkCache(
     val id: Int = 0,
 
     @ColumnInfo(name = "book_id")
-    val bookId: Int,
+    val bookId: String,
 
     @ColumnInfo(name = "seller_name")
     val sellerName: String,
@@ -31,7 +31,7 @@ data class SellerLinkCache(
     @ColumnInfo(name = "url")
     val url: String
 ) : MapSeller {
-    override fun <T : Any> map(bookId: Int, mapper: SellerMapper<T>): T {
+    override fun <T : Any> map(bookId: String, mapper: SellerMapper<T>): T {
         return mapper.map(
             bookId = bookId,
             sellerName = sellerName,
