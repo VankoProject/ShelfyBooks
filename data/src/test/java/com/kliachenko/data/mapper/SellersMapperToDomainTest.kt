@@ -1,5 +1,6 @@
 package com.kliachenko.data.mapper
 
+import com.kliachenko.domain.model.SellerDomain
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

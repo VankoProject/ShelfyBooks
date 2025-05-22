@@ -1,6 +1,7 @@
 package com.kliachenko.data.mapper
 
 import com.kliachenko.data.localCache.entity.SellerLinkCache
+import com.kliachenko.domain.model.SellerDomain
 import javax.inject.Inject
 
 interface SellerMapper<T : Any> {
@@ -22,8 +23,8 @@ interface SellerMapper<T : Any> {
         }
     }
 
-    interface ToDomain: SellerMapper<SellerDomain> {
-        class Base @Inject constructor(): ToDomain {
+    interface ToDomain : SellerMapper<SellerDomain> {
+        class Base @Inject constructor() : ToDomain {
             override fun map(bookId: String, sellerName: String, url: String): SellerDomain {
                 return SellerDomain(name = sellerName, url = url)
             }
@@ -31,8 +32,3 @@ interface SellerMapper<T : Any> {
         }
     }
 }
-
-data class SellerDomain(
-    private val name: String,
-    private val url: String
-)

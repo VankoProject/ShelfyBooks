@@ -1,6 +1,7 @@
 package com.kliachenko.data.mapper
 
 import com.kliachenko.data.localCache.entity.CategoryCache
+import com.kliachenko.domain.model.CategoryDomain
 import javax.inject.Inject
 
 interface CategoryMapper<T : Any> {
@@ -45,15 +46,3 @@ interface CategoryMapper<T : Any> {
     }
 
 }
-
-data class CategoryScreenData(
-    private val publishedDate: String,
-    private val categories: List<CategoryDomain>
-)
-
-data class CategoryDomain(
-    private val categoryId: String,
-    private val categoryName: String,
-    private val booksCount: Int,
-    private val updatePeriod: String,
-)

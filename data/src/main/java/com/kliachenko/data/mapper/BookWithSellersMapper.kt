@@ -2,6 +2,8 @@ package com.kliachenko.data.mapper
 
 import com.kliachenko.data.localCache.entity.BookCache
 import com.kliachenko.data.localCache.entity.SellerLinkCache
+import com.kliachenko.domain.model.BookDomain
+import com.kliachenko.domain.model.SellerDomain
 import javax.inject.Inject
 
 interface BookWithSellersMapper<T> {

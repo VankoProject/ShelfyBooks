@@ -41,13 +41,3 @@ interface BookMapper<T : Any> {
     }
 
 }
-
-data class BookDomain(
-    private val title: String,
-    private val description: String,
-    private val author: String,
-    private val publisher: String,
-    private val imageUrl: String,
-    private val rank: Int,
-    private val sellers: List<SellerDomain>
-)
