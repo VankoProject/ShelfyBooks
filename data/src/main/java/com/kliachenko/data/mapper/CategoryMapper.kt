@@ -6,24 +6,21 @@ import javax.inject.Inject
 interface CategoryMapper<T : Any> {
 
     fun map(
-        listName: String,
-        publishedDate: String,
+        categoryId: String,
         categoryName: String,
         booksCount: Int,
         updatedPeriod: String,
     ): T
 
     interface ToCache : CategoryMapper<CategoryCache> {
-        class Base @Inject constructor(): ToCache {
+        class Base @Inject constructor() : ToCache {
             override fun map(
-                listName: String,
-                publishedDate: String,
+                categoryId: String,
                 categoryName: String,
                 booksCount: Int,
                 updatedPeriod: String,
             ) = CategoryCache(
-                listName = listName,
-                publishedDate = publishedDate,
+                categoryId = categoryId,
                 categoryName = categoryName,
                 booksCount = booksCount,
                 updatePeriod = updatedPeriod
@@ -31,29 +28,32 @@ interface CategoryMapper<T : Any> {
         }
     }
 
-    interface ToDomain: CategoryMapper<CategoryDomain> {
-        class Base @Inject constructor(): ToDomain {
+    interface ToDomain : CategoryMapper<CategoryDomain> {
+        class Base @Inject constructor() : ToDomain {
             override fun map(
-                listName: String,
-                publishedDate: String,
+                categoryId: String,
                 categoryName: String,
                 booksCount: Int,
                 updatedPeriod: String
             ) = CategoryDomain(
+                categoryId = categoryId,
                 categoryName = categoryName,
                 booksCount = booksCount,
                 updatePeriod = updatedPeriod,
-                publisherDate = publishedDate
             )
-
         }
     }
 
 }
 
+data class CategoryScreenData(
+    private val publishedDate: String,
+    private val categories: List<CategoryDomain>
+)
+
 data class CategoryDomain(
+    private val categoryId: String,
     private val categoryName: String,
     private val booksCount: Int,
     private val updatePeriod: String,
-    private val publisherDate: String
 )

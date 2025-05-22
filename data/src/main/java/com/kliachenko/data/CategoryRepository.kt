@@ -1,16 +1,14 @@
 package com.kliachenko.data
 
-import com.kliachenko.data.cloud.BookCloudDataSource
+import com.kliachenko.data.cloud.CategoryCloudDataSource
 import com.kliachenko.data.core.HandleError
-import com.kliachenko.data.localCache.BookCacheDataSource
 import com.kliachenko.data.localCache.CategoryCacheDataSource
-import com.kliachenko.data.localCache.SellersCacheDataSource
-import com.kliachenko.data.mapper.BookMapper
+import com.kliachenko.data.localCache.MetaInfoCacheDataSource
 import com.kliachenko.data.mapper.CategoryDomain
 import com.kliachenko.data.mapper.CategoryMapper
-import com.kliachenko.data.mapper.SellerMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -18,50 +16,46 @@ import javax.inject.Inject
 interface CategoryRepository {
 
     fun categories(): Flow<LoadResult<CategoryDomain>>
+
+    suspend fun publishedDate(): String
 }
 
 class CategoryRepositoryImpl @Inject constructor(
-    private val bookCloudDataSource: BookCloudDataSource,
+    private val categoryCloudDataSource: CategoryCloudDataSource,
     private val categoryCacheDataSource: CategoryCacheDataSource.Mutable,
-    private val bookCacheDataSource: BookCacheDataSource.Save,
-    private val sellersCacheDataSource: SellersCacheDataSource.Save,
+    private val metaInfoCacheDataSource: MetaInfoCacheDataSource.Mutable,
     private val mapCategoryToCache: CategoryMapper.ToCache,
     private val mapCategoryToDomain: CategoryMapper.ToDomain,
-    private val mapBookToCache: BookMapper.ToCache,
-    private val mapSellersToCache: SellerMapper.ToCache,
     private val handleError: HandleError<String>
 ) : CategoryRepository {
 
-    override fun categories(): Flow<LoadResult<CategoryDomain>> =
-        flow {
+    override fun categories(): Flow<LoadResult<CategoryDomain>> = flow {
+        val cached = categoryCacheDataSource.read().first()
+        if (cached.isEmpty()) {
             try {
-                val cloudResponse = bookCloudDataSource.overview()
+                val cloudResponse = categoryCloudDataSource.overview()
                 val categories = cloudResponse.categoriesList
+                val publishedDate = cloudResponse.publishedDate
+
                 if (categories.isEmpty()) emit(LoadResult.Empty())
                 else {
                     val cacheCategories = categories.map { it.map(mapCategoryToCache) }
                     categoryCacheDataSource.save(cacheCategories)
-                    val cacheBooks = categories.flatMap { category ->
-                        category.bookList().map { it.map(category.categoryId(), mapBookToCache) }
-                    }
-                    bookCacheDataSource.save(cacheBooks)
-
-                    val cacheSellers = categories.flatMap { category ->
-                        category.bookList().flatMap { book ->
-                            book.sellers().map { seller ->
-                                seller.map(book.bookId(), mapSellersToCache)
-                            }
-                        }
-                    }
-                    sellersCacheDataSource.save(cacheSellers)
+                    metaInfoCacheDataSource.save(publishedDate)
                 }
-                val domainFlow = categoryCacheDataSource.read()
-                    .map { categoryList -> categoryList.map { it.map(mapCategoryToDomain) } }
-                emitAll(domainFlow.map { LoadResult.Success(it) })
-            } catch (e: Exception) {
-                emit(LoadResult.Error(handleError.handle(e)))
+            } catch (exception: Exception) {
+                emit(LoadResult.Error(handleError.handle(exception)))
+                return@flow
             }
         }
+        emitAll(
+            categoryCacheDataSource.read().map { list ->
+                LoadResult.Success(list.map { it.map(mapCategoryToDomain) })
+            }
+        )
+    }
+
+    override suspend fun publishedDate() = metaInfoCacheDataSource.read()
 
 }
 
