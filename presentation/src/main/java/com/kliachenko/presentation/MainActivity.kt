@@ -8,7 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.kliachenko.presentation.navigation.AppGraph
+import com.kliachenko.presentation.navigation.AppNavGraph
+import com.kliachenko.presentation.navigation.rememberNavigationState
 import com.kliachenko.presentation.ui.theme.ShelfyBooksTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ShelfyBooksTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
+                    NavApp(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -28,6 +35,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(modifier: Modifier) {
+fun NavApp(modifier: Modifier) {
+
+    val navController: NavHostController = rememberNavController()
+    val navigationState = rememberNavigationState(navController)
+    val startDestination = AppGraph.SplashGraph.Splash.route()
+
+    AppNavGraph(
+        modifier = modifier,
+        navController = navController,
+        startDestination = startDestination,
+        splashScreenContent = { SplashScreen(navigationState) },
+        authScreenContent = { AuthScreen(navigationState) },
+        categoriesScreenContent = { CategoriesScreen(navigationState) },
+        booksScreenContent = { categoryId -> BooksScreen(navigationState, categoryId) })
 
 }
