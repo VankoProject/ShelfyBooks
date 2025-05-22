@@ -1,4 +1,4 @@
-package com.kliachenko.shelfybooks.ui.theme
+package com.kliachenko.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
