@@ -1,7 +1,6 @@
 package com.kliachenko.data.repository
 
 import com.kliachenko.data.CategoryRepositoryImpl
-import com.kliachenko.data.LoadResult
 import com.kliachenko.data.cloud.CategoryCloudDataSource
 import com.kliachenko.data.cloud.cloudResponse.BestsellersResult
 import com.kliachenko.data.cloud.cloudResponse.CategoryCloud
@@ -9,8 +8,9 @@ import com.kliachenko.data.core.HandleError
 import com.kliachenko.data.localCache.CategoryCacheDataSource
 import com.kliachenko.data.localCache.MetaInfoCacheDataSource
 import com.kliachenko.data.localCache.entity.CategoryCache
-import com.kliachenko.data.mapper.CategoryDomain
 import com.kliachenko.data.mapper.CategoryMapper
+import com.kliachenko.domain.model.CategoryDomain
+import com.kliachenko.domain.repository.LoadResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf

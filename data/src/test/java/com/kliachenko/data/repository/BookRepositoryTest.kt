@@ -1,7 +1,6 @@
 package com.kliachenko.data.repository
 
 import com.kliachenko.data.BookRepositoryImpl
-import com.kliachenko.data.LoadResult
 import com.kliachenko.data.cloud.BookCloudDataSource
 import com.kliachenko.data.cloud.cloudResponse.BookCloud
 import com.kliachenko.data.cloud.cloudResponse.BookListResponse
@@ -12,11 +11,12 @@ import com.kliachenko.data.localCache.SellersCacheDataSource
 import com.kliachenko.data.localCache.entity.BookCache
 import com.kliachenko.data.localCache.entity.BookWithSellers
 import com.kliachenko.data.localCache.entity.SellerLinkCache
-import com.kliachenko.data.mapper.BookDomain
 import com.kliachenko.data.mapper.BookMapper
 import com.kliachenko.data.mapper.BookWithSellersMapper
-import com.kliachenko.data.mapper.SellerDomain
 import com.kliachenko.data.mapper.SellerMapper
+import com.kliachenko.domain.model.BookDomain
+import com.kliachenko.domain.model.SellerDomain
+import com.kliachenko.domain.repository.LoadResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf

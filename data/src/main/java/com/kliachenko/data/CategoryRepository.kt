@@ -4,21 +4,16 @@ import com.kliachenko.data.cloud.CategoryCloudDataSource
 import com.kliachenko.data.core.HandleError
 import com.kliachenko.data.localCache.CategoryCacheDataSource
 import com.kliachenko.data.localCache.MetaInfoCacheDataSource
-import com.kliachenko.data.mapper.CategoryDomain
 import com.kliachenko.data.mapper.CategoryMapper
+import com.kliachenko.domain.model.CategoryDomain
+import com.kliachenko.domain.repository.CategoryRepository
+import com.kliachenko.domain.repository.LoadResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-
-interface CategoryRepository {
-
-    fun categories(): Flow<LoadResult<CategoryDomain>>
-
-    suspend fun publishedDate(): String
-}
 
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryCloudDataSource: CategoryCloudDataSource,
@@ -29,7 +24,7 @@ class CategoryRepositoryImpl @Inject constructor(
     private val handleError: HandleError<String>
 ) : CategoryRepository {
 
-    override fun categories(): Flow<LoadResult<CategoryDomain>> = flow {
+    override fun categories(): Flow<LoadResult<List<CategoryDomain>>> = flow {
         val cached = categoryCacheDataSource.read().first()
         if (cached.isEmpty()) {
             try {
@@ -48,37 +43,15 @@ class CategoryRepositoryImpl @Inject constructor(
                 return@flow
             }
         }
-        emitAll(
+        val mappedCategoriesFlow: Flow<LoadResult<List<CategoryDomain>>> =
             categoryCacheDataSource.read().map { list ->
                 LoadResult.Success(list.map { it.map(mapCategoryToDomain) })
             }
-        )
+
+        emitAll(mappedCategoriesFlow)
     }
 
     override suspend fun publishedDate() = metaInfoCacheDataSource.read()
 
 }
 
-interface LoadResult<T : Any> {
-
-    fun <S : Any> map(mapper: Mapper<T, S>): S
-
-    interface Mapper<T : Any, S : Any> {
-        fun mapSuccess(data: List<T>): S
-        fun mapError(errorMessage: String): S
-        fun mapEmpty(): S
-    }
-
-    class Empty<T : Any> : LoadResult<T> {
-        override fun <S : Any> map(mapper: Mapper<T, S>) = mapper.mapEmpty()
-    }
-
-    data class Error<T : Any>(private val errorMessage: String) : LoadResult<T> {
-        override fun <S : Any> map(mapper: Mapper<T, S>) = mapper.mapError(errorMessage)
-    }
-
-    data class Success<T : Any>(private val data: List<T>) : LoadResult<T> {
-        override fun <S : Any> map(mapper: Mapper<T, S>) = mapper.mapSuccess(data)
-    }
-
-}
