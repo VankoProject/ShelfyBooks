@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.kliachenko.data.localCache.AppDataBase
 import com.kliachenko.data.localCache.BookCacheDataSource
 import com.kliachenko.data.localCache.CategoryCacheDataSource
+import com.kliachenko.data.localCache.MetaInfoCacheDataSource
 import com.kliachenko.data.localCache.SellersCacheDataSource
 import dagger.Binds
 import dagger.Module
@@ -23,6 +24,12 @@ abstract class CacheModule {
     abstract fun bindCategoryCacheDataSource(
         impl: CategoryCacheDataSource.Base
     ): CategoryCacheDataSource.Mutable
+
+    @Binds
+    @Singleton
+    abstract fun bindMetaInfoCacheDataSource(
+        impl: MetaInfoCacheDataSource.Base
+    ): MetaInfoCacheDataSource.Mutable
 
     @Binds
     @Singleton
@@ -56,6 +63,10 @@ abstract class CacheModule {
         @Provides
         @Singleton
         fun provideBookDao(dataBase: AppDataBase) = dataBase.bookDao()
+
+        @Provides
+        @Singleton
+        fun provideMetaInfoDao(dataBase: AppDataBase) = dataBase.metaInfoDao()
 
     }
 

@@ -1,4 +1,4 @@
-package com.kliachenko.data.cloud
+package com.kliachenko.data.cloud.cloudResponse
 
 import com.google.gson.annotations.SerializedName
 import com.kliachenko.data.localCache.MapCategory
@@ -19,32 +19,23 @@ data class BestsellersResult(
 )
 
 data class CategoryCloud(
-    @SerializedName("list_name")
-    private val listName: String,
-    @SerializedName("published_date")
-    private val publishedDate: String,
+    @SerializedName("list_name_encoded")
+    private val categoryId: String,
     @SerializedName("display_name")
     private val categoryName: String,
     @SerializedName("normal_list_ends_at")
     private val booksCount: Int,
     @SerializedName("updated")
-    private val updatedPeriod: String,
-    @SerializedName("books")
-    private val booksList: List<BookCloud>
+    private val updatePeriod: String,
 ) : MapCategory {
     override fun <T : Any> map(mapper: CategoryMapper<T>): T {
         return mapper.map(
-            listName = listName,
-            publishedDate = publishedDate,
+            categoryId = categoryId,
             categoryName = categoryName,
             booksCount = booksCount,
-            updatedPeriod = updatedPeriod
+            updatedPeriod = updatePeriod
         )
     }
-
-    fun bookList(): List<BookCloud> = booksList
-
-    fun categoryId(): String = listName
 
 }
 

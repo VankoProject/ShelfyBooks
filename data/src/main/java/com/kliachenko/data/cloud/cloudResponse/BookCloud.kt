@@ -1,10 +1,23 @@
-package com.kliachenko.data.cloud
+package com.kliachenko.data.cloud.cloudResponse
 
 import com.google.gson.annotations.SerializedName
 import com.kliachenko.data.localCache.MapBook
 import com.kliachenko.data.localCache.MapSeller
 import com.kliachenko.data.mapper.BookMapper
 import com.kliachenko.data.mapper.SellerMapper
+
+data class BookListResponse(
+    @SerializedName("results")
+    val result: BookListResult
+)
+
+data class BookListResult(
+    @SerializedName("list_name")
+    val listName: String,
+
+    @SerializedName("books")
+    val books: List<BookCloud>
+)
 
 data class BookCloud(
     @SerializedName("primary_isbn13")

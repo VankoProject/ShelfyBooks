@@ -9,11 +9,8 @@ import com.kliachenko.data.mapper.CategoryMapper
 @Entity(tableName = "categories")
 data class CategoryCache(
     @PrimaryKey
-    @ColumnInfo(name = "list_name")
-    val listName: String,
-
-    @ColumnInfo(name = "published_date")
-    val publishedDate: String,
+    @ColumnInfo(name = "category_id")
+    val categoryId: String,
 
     @ColumnInfo(name = "category_name")
     val categoryName: String,
@@ -26,8 +23,7 @@ data class CategoryCache(
 ) : MapCategory {
     override fun <T : Any> map(mapper: CategoryMapper<T>): T {
         return mapper.map(
-            listName = listName,
-            publishedDate = publishedDate,
+            categoryId = categoryId,
             categoryName = categoryName,
             booksCount = booksCount,
             updatedPeriod = updatePeriod

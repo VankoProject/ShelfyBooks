@@ -13,7 +13,7 @@ import com.kliachenko.data.mapper.BookMapper
     foreignKeys = [
         ForeignKey(
             entity = CategoryCache::class,
-            parentColumns = ["list_name"],
+            parentColumns = ["category_id"],
             childColumns = ["category_list_name"],
             onDelete = ForeignKey.CASCADE
         )

@@ -1,6 +1,7 @@
 package com.kliachenko.data.di
 
 import com.kliachenko.data.cloud.BookCloudDataSource
+import com.kliachenko.data.cloud.CategoryCloudDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +15,9 @@ abstract class DataSourceModule {
     abstract fun bindBookCloudDataSource(
         impl: BookCloudDataSource.Base
     ): BookCloudDataSource
+
+    @Binds
+    abstract fun bindCategoryCloudDataSource(
+        impl: CategoryCloudDataSource.Base
+    ): CategoryCloudDataSource
 }
