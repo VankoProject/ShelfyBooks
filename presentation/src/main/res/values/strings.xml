@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="logo">logo</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="auth_greeting">Get started with ShelfyBooks</string>
+    <string name="auth_instruction">Sign in with your Google account to access the latest New York Times Bestsellers</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
 </resources>
