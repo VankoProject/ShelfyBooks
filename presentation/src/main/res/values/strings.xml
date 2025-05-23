@@ -6,4 +6,10 @@
     <string name="auth_instruction">Sign in with your Google account to access the latest New York Times Bestsellers</string>
     <string name="retry">Retry</string>
     <string name="cancel">Cancel</string>
+    <string name="categories_screen_title">New York Times BestSellers</string>
+    <string name="loading_categories_message">Loading\nbestseller book categories…</string>
+    <string name="updated_period">Updated: %1$s</string>
+    <string name="books_count">%1$s books</string>
+    <string name="published_date">Published %1$s</string>
+    <string name="choose_a_category">Choose a Category</string>
 </resources>
