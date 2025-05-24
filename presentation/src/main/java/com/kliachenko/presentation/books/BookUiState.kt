@@ -26,7 +26,7 @@ interface BookUiState {
     fun Show(
         categoryName: String,
         navigate: () -> Unit,
-        onButtonClick: () -> Unit,
+        onRetry: () -> Unit,
         onSellersClick: (List<SellerUi>) -> Unit
     ) = Unit
 
@@ -42,7 +42,7 @@ interface BookUiState {
         override fun Show(
             categoryName: String,
             navigate: () -> Unit,
-            onButtonClick: () -> Unit,
+            onRetry: () -> Unit,
             onSellersClick: (List<SellerUi>) -> Unit
         ) {
             Scaffold(
@@ -60,7 +60,7 @@ interface BookUiState {
                 }
             ) { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
-                    content(onButtonClick, onSellersClick)
+                    content(onRetry, onSellersClick)
                 }
             }
         }

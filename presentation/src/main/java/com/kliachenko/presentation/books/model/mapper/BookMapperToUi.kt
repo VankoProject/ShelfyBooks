@@ -1,4 +1,4 @@
-package com.kliachenko.presentation.books.mapper
+package com.kliachenko.presentation.books.model.mapper
 
 import com.kliachenko.domain.model.BookMapper
 import com.kliachenko.domain.model.SellerDomain

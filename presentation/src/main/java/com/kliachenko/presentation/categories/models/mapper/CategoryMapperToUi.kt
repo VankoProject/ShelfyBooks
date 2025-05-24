@@ -1,6 +1,7 @@
-package com.kliachenko.presentation.categories.models
+package com.kliachenko.presentation.categories.models.mapper
 
 import com.kliachenko.domain.model.CategoryMapper
+import com.kliachenko.presentation.categories.models.CategoryUi
 import javax.inject.Inject
 
 class CategoryMapperToUi @Inject constructor() : CategoryMapper<CategoryUi> {

@@ -1,6 +1,8 @@
-package com.kliachenko.presentation.categories.models
+package com.kliachenko.presentation.categories.models.mapper
 
 import com.kliachenko.presentation.categories.CategoriesUiState
+import com.kliachenko.presentation.categories.models.CategoryScreenUiData
+import com.kliachenko.presentation.categories.models.CategoryUi
 import javax.inject.Inject
 
 class CategoryScreenUiDataToStateMapper @Inject constructor() :

@@ -1,18 +1,16 @@
 package com.kliachenko.presentation.books.model
 
-import android.content.Context
-import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import com.kliachenko.presentation.books.BookStoreLinkHandler
 
 interface SellerUi {
 
     @Composable
     fun Show(onSellerClick: () -> Unit)
 
-    fun open(context: Context)
+    fun buy(opener: BookStoreLinkHandler)
 
     data class Base(
         private val name: String,
@@ -26,14 +24,8 @@ interface SellerUi {
             }
         }
 
-        override fun open(context: Context) {
-            val tabBuilder = CustomTabsIntent.Builder()
-                .setToolbarCornerRadiusDp(8)
-                .addDefaultShareMenuItem()
-                .setShowTitle(true)
-
-            val customTabsIntent = tabBuilder.build()
-            customTabsIntent.launchUrl(context, Uri.parse(url))
+        override fun buy(opener: BookStoreLinkHandler) {
+            opener.open(url)
         }
 
     }

@@ -26,7 +26,7 @@ interface CategoriesUiState {
 
     @Composable
     fun Show(
-        onClick: () -> Unit,
+        onRetry: () -> Unit,
         onItemClick: (String) -> Unit
     ) = Unit
 
@@ -39,7 +39,7 @@ interface CategoriesUiState {
 
         @Composable
         override fun Show(
-            onClick: () -> Unit,
+            onRetry: () -> Unit,
             onItemClick: (String) -> Unit
         ) {
             Column(
@@ -55,7 +55,7 @@ interface CategoriesUiState {
                     text = stringResource(R.string.categories_screen_title)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                content(onClick, onItemClick)
+                content(onRetry, onItemClick)
             }
         }
     }

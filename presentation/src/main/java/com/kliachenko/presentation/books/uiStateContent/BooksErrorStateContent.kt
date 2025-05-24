@@ -50,7 +50,7 @@ fun PreviewErrorState() {
     BookUiState.Error("No internet connection").Show(
         categoryName = "Hardcover Fiction Category",
         navigate = {},
-        onButtonClick = {},
+        onRetry = {},
         onSellersClick = {}
     )
 }

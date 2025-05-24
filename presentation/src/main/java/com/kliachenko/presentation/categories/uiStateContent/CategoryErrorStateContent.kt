@@ -46,7 +46,7 @@ fun CategoryErrorStateContent(errorMessage: String, onRetry: () -> Unit) {
 @Composable
 fun PreviewErrorState() {
     CategoriesUiState.Error("No internet connection").Show(
-        onClick = {},
+        onRetry = {},
         onItemClick = {}
     )
 }

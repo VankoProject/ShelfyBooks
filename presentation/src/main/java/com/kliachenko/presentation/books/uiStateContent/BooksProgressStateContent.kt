@@ -43,7 +43,7 @@ fun PreviewProgressState() {
     BookUiState.Progress(categoryName = "Hardcover Fiction").Show(
         categoryName = "Hardcover Fiction Category",
         navigate = {},
-        onButtonClick = {},
+        onRetry = {},
         onSellersClick = {}
     )
 }

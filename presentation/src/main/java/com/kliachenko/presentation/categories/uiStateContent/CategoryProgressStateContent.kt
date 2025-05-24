@@ -41,7 +41,7 @@ fun CategoryProgressStateContent() {
 @Composable
 fun PreviewProgressState() {
     CategoriesUiState.Progress.Show(
-        onClick = {},
+        onRetry = {},
         onItemClick = {}
     )
 }

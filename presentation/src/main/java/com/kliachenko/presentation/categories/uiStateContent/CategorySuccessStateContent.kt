@@ -76,7 +76,7 @@ fun PreviewSuccessStateContent() {
             CategoriesUiState.Success(
                 publishedDate = "2025-05-23",
                 categories = fakeCategories,
-            ).Show(onClick = { }) { }
+            ).Show(onRetry = { }) { }
         }
     }
 }
