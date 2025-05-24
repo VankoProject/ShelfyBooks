@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.categories.models.CategoryUi
-import com.kliachenko.presentation.categories.uiStateContent.ErrorContent
-import com.kliachenko.presentation.categories.uiStateContent.ProgressContent
-import com.kliachenko.presentation.categories.uiStateContent.SuccessStateContent
+import com.kliachenko.presentation.categories.uiStateContent.CategoryErrorStateContent
+import com.kliachenko.presentation.categories.uiStateContent.CategoryProgressStateContent
+import com.kliachenko.presentation.categories.uiStateContent.CategorySuccessStateContent
 
 interface CategoriesUiState {
 
@@ -65,20 +65,20 @@ interface CategoriesUiState {
     data class Error(
         private val errorMessage: String
     ) : Abstract(content = { onClick, _ ->
-        ErrorContent(errorMessage = errorMessage) {
+        CategoryErrorStateContent(errorMessage = errorMessage) {
             onClick.invoke()
         }
     })
 
     data object Progress : Abstract(content = { _, _ ->
-        ProgressContent()
+        CategoryProgressStateContent()
     })
 
     data class Success(
         private val publishedDate: String,
         private val categories: List<CategoryUi>
     ) : Abstract(content = { _, onItemClick: (String) -> Unit ->
-        SuccessStateContent(publishedDate = publishedDate, categories = categories) { categoryId ->
+        CategorySuccessStateContent(publishedDate = publishedDate, categories = categories) { categoryId ->
             onItemClick.invoke(categoryId)
         }
     })

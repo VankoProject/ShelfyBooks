@@ -24,7 +24,7 @@ import com.kliachenko.presentation.categories.CategoriesUiState
 import com.kliachenko.presentation.categories.models.CategoryUi
 
 @Composable
-fun SuccessStateContent(
+fun CategorySuccessStateContent(
     publishedDate: String,
     categories: List<CategoryUi>,
     onItemClick: (String) -> Unit

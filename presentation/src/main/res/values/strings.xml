@@ -8,8 +8,21 @@
     <string name="cancel">Cancel</string>
     <string name="categories_screen_title">New York Times BestSellers</string>
     <string name="loading_categories_message">Loading\nbestseller book categories…</string>
+    <string name="loading_books_message">Loading\n%1$s Category…</string>
     <string name="updated_period">Updated: %1$s</string>
     <string name="books_count">%1$s books</string>
     <string name="published_date">Published %1$s</string>
     <string name="choose_a_category">Choose a Category</string>
+    <string name="go_back">Go back</string>
+    <string name="rate">rate</string>
+    <string name="books">books</string>
+    <string name="you_re_signed_in">You\'re signed in!</string>
+    <string name="first_place">Ranked number one</string>
+    <string name="second_place">Ranked number two</string>
+    <string name="third_place">Ranked number three</string>
+    <string name="book_image">book image</string>
+    <string name="book_author">author:\u0020</string>
+    <string name="book_publisher">publisher:\u0020</string>
+    <string name="book_buy_button">Buy</string>
+    <string name="choose_a_seller">Choose a seller</string>
 </resources>

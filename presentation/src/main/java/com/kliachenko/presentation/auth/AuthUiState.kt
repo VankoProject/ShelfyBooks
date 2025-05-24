@@ -73,7 +73,7 @@ interface AuthUiState {
                 .clickable(onClick = onClick, role = Role.Button)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.google_neutral_logo),
+                painter = painterResource(id = R.drawable.google_natural_logo),
                 contentDescription = stringResource(id = R.string.login_with_google),
                 modifier = Modifier.height(48.dp)
             )

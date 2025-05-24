@@ -69,4 +69,7 @@ dependencies {
 
     //Serialization
     implementation(libs.kotlinx.serialization.core)
+
+    //Custom Tabs
+    implementation (libs.androidx.browser)
 }

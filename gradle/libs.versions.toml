@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.2"
+browser = "1.8.0"
 coilCompose = "3.2.0"
 javaxInject = "1"
 kotlin = "2.1.0"
@@ -36,6 +37,7 @@ uiTooling = "1.8.2"
 
 [libraries]
 
+androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
