@@ -27,20 +27,20 @@ interface CategoriesUiState {
     @Composable
     fun Show(
         onRetry: () -> Unit,
-        onItemClick: (String) -> Unit
+        onItemClick: (String, String) -> Unit
     ) = Unit
 
     abstract class Abstract(
         private val content: @Composable ColumnScope.(
             onClick: () -> Unit,
-            onItemClick: (String) -> Unit
+            onItemClick: (String, String) -> Unit
         ) -> Unit
     ) : CategoriesUiState {
 
         @Composable
         override fun Show(
             onRetry: () -> Unit,
-            onItemClick: (String) -> Unit
+            onItemClick: (String, String) -> Unit
         ) {
             Column(
                 modifier = Modifier
@@ -77,9 +77,12 @@ interface CategoriesUiState {
     data class Success(
         private val publishedDate: String,
         private val categories: List<CategoryUi>
-    ) : Abstract(content = { _, onItemClick: (String) -> Unit ->
-        CategorySuccessStateContent(publishedDate = publishedDate, categories = categories) { categoryId ->
-            onItemClick.invoke(categoryId)
+    ) : Abstract(content = { _, onItemClick: (String, String) -> Unit ->
+        CategorySuccessStateContent(
+            publishedDate = publishedDate,
+            categories = categories
+        ) { categoryId, categoryName ->
+            onItemClick.invoke(categoryId, categoryName)
         }
     })
 

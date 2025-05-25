@@ -24,7 +24,7 @@ import com.kliachenko.presentation.R
 interface CategoryUi {
 
     @Composable
-    fun Show(onItemClick: (String) -> Unit) = Unit
+    fun Show(onItemClick: (String, String) -> Unit) = Unit
 
     data class Base(
         private val id: String,
@@ -34,9 +34,9 @@ interface CategoryUi {
     ) : CategoryUi {
 
         @Composable
-        override fun Show(onItemClick: (String) -> Unit) {
+        override fun Show(onItemClick: (String, String) -> Unit) {
             CategoryUiContent(name = name, booksCount = booksCount, updatePeriod = updatePeriod) {
-                onItemClick.invoke(id)
+                onItemClick.invoke(id, name)
             }
         }
     }
@@ -76,9 +76,11 @@ fun CategoryUiContent(
                     modifier = Modifier.width(240.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-                Text(text = stringResource(R.string.updated_period, updatePeriod),
+                Text(
+                    text = stringResource(R.string.updated_period, updatePeriod),
                     fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold)
+                    fontWeight = FontWeight.Bold
+                )
             }
             HorizontalDivider(
                 thickness = 1.dp,

@@ -42,11 +42,11 @@ interface AppGraph {
 
         @Serializable
         sealed class BooksGraph : MainGraph() {
-            data class Books(val categoryId: String) : BooksGraph() {
+            data class Books(val categoryId: String, val categoryName: String) : BooksGraph() {
 
                 override fun pattern(): String = Routes.BOOK_PATTERN
 
-                override fun route() = Routes.booksRoute(categoryId)
+                override fun route() = Routes.booksRoute(categoryId, categoryName)
             }
         }
     }
@@ -59,8 +59,8 @@ private object Routes {
     const val MAIN = "main"
     const val CATEGORIES = "categories"
 
-    const val BOOK_PATTERN = "books/{categoryId}"
-    fun booksRoute(categoryId: String) = "books/$categoryId"
+    const val BOOK_PATTERN = "books/{categoryId}/{categoryName}"
+    fun booksRoute(categoryId: String, categoryName: String) = "books/$categoryId/$categoryName"
 }
 
 

@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.kliachenko.presentation.auth.AuthScreen
 import com.kliachenko.presentation.books.BooksScreen
@@ -52,6 +50,12 @@ fun NavApp(modifier: Modifier) {
         splashScreenContent = { SplashScreen(navigationState) },
         authScreenContent = { AuthScreen(navigationState) },
         categoriesScreenContent = { CategoriesScreen(navigationState) },
-        booksScreenContent = { categoryId -> BooksScreen(navigationState, categoryId) })
+        booksScreenContent = { categoryId, categoryName ->
+            BooksScreen(
+                navigationState,
+                categoryId,
+                categoryName
+            )
+        })
 
 }

@@ -17,7 +17,7 @@ fun AppNavGraph(
     splashScreenContent: @Composable () -> Unit,
     authScreenContent: @Composable () -> Unit,
     categoriesScreenContent: @Composable () -> Unit,
-    booksScreenContent: @Composable (String) -> Unit
+    booksScreenContent: @Composable (String, String) -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -40,13 +40,16 @@ fun AppNavGraph(
             }
 
             composable(
-                route = AppGraph.MainGraph.BooksGraph.Books(categoryId = "").pattern(),
+                route = AppGraph.MainGraph.BooksGraph.Books(categoryId = "", categoryName = "")
+                    .pattern(),
                 arguments = listOf(
-                    navArgument("categoryId") { type = NavType.StringType }
+                    navArgument("categoryId") { type = NavType.StringType },
+                    navArgument("categoryName") { type = NavType.StringType }
                 )
             ) { backStackEntry ->
                 val categoryId = backStackEntry.arguments?.getString("categoryId") ?: ""
-                booksScreenContent(categoryId)
+                val categoryName = backStackEntry.arguments?.getString("categoryName") ?: ""
+                booksScreenContent(categoryId, categoryName)
             }
         }
     }

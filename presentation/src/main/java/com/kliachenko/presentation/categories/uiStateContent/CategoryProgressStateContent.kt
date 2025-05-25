@@ -42,6 +42,6 @@ fun CategoryProgressStateContent() {
 fun PreviewProgressState() {
     CategoriesUiState.Progress.Show(
         onRetry = {},
-        onItemClick = {}
+        onItemClick = { _, _ -> }
     )
 }

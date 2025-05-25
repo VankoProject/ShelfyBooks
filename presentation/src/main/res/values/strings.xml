@@ -25,4 +25,5 @@
     <string name="book_publisher">publisher:\u0020</string>
     <string name="book_buy_button">Buy</string>
     <string name="choose_a_seller">Choose a seller</string>
+    <string name="bestseller_category">BestSeller Category</string>
 </resources>

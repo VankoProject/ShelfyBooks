@@ -27,7 +27,7 @@ import com.kliachenko.presentation.categories.models.CategoryUi
 fun CategorySuccessStateContent(
     publishedDate: String,
     categories: List<CategoryUi>,
-    onItemClick: (String) -> Unit
+    onItemClick: (String, String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -52,7 +52,7 @@ fun CategorySuccessStateContent(
         Spacer(modifier = Modifier.height(20.dp))
         LazyColumn {
             items(categories) {
-                it.Show { id -> onItemClick(id) }
+                it.Show { id, categoryName -> onItemClick(id, categoryName) }
             }
         }
     }
@@ -76,7 +76,7 @@ fun PreviewSuccessStateContent() {
             CategoriesUiState.Success(
                 publishedDate = "2025-05-23",
                 categories = fakeCategories,
-            ).Show(onRetry = { }) { }
+            ).Show(onRetry = { }) { _, _ -> }
         }
     }
 }

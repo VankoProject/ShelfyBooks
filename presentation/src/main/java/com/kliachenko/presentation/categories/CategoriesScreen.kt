@@ -17,10 +17,10 @@ fun CategoriesScreen(
 
     uiState.Show(
         onRetry = { viewModel.load() },
-        onItemClick = { categoryId ->
+        onItemClick = { categoryId, categoryName ->
             navigation.navigate(
                 graph = AppGraph.MainGraph.BooksGraph.Books(
-                    categoryId
+                    categoryId, categoryName
                 )
             )
         })

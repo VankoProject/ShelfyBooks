@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kliachenko.presentation.R
 import com.kliachenko.presentation.navigation.NavigationState
 import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
 
@@ -14,6 +16,10 @@ fun BooksScreen(
     categoryId: String,
     categoryName: String
 ) {
+
+    val displayCategoryName = categoryName.ifBlank {
+        stringResource(R.string.bestseller_category)
+    }
 
     val viewModel: BooksViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
@@ -31,7 +37,7 @@ fun BooksScreen(
 
 
     uiState.Show(
-        categoryName = categoryName,
+        categoryName = displayCategoryName,
         navigate = { navigation.popBackStack() },
         onRetry = { viewModel.load(categoryId, categoryName) },
         onSellersClick = { sellers -> viewModel.sellers(sellers = sellers) })
