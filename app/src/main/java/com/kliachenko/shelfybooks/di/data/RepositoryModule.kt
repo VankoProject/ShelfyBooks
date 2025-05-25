@@ -1,4 +1,4 @@
-package com.kliachenko.data.di
+package com.kliachenko.shelfybooks.di.data
 
 import com.kliachenko.data.BookRepositoryImpl
 import com.kliachenko.data.CategoryRepositoryImpl
@@ -25,4 +25,3 @@ interface DataModule {
     fun bindAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 
 }
-

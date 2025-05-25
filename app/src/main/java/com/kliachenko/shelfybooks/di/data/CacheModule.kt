@@ -1,4 +1,4 @@
-package com.kliachenko.data.di
+package com.kliachenko.shelfybooks.di.data
 
 import android.content.Context
 import androidx.room.Room
@@ -67,6 +67,10 @@ abstract class CacheModule {
         @Provides
         @Singleton
         fun provideMetaInfoDao(dataBase: AppDataBase) = dataBase.metaInfoDao()
+
+        @Provides
+        @Singleton
+        fun provideSellerDao(dataBase: AppDataBase) = dataBase.sellerDao()
 
     }
 

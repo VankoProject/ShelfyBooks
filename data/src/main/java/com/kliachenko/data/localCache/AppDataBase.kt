@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import com.kliachenko.data.localCache.dao.BookDao
 import com.kliachenko.data.localCache.dao.CategoryDao
 import com.kliachenko.data.localCache.dao.MetaInfoDao
+import com.kliachenko.data.localCache.dao.SellerDao
 import com.kliachenko.data.localCache.entity.BookCache
 import com.kliachenko.data.localCache.entity.CategoryCache
 import com.kliachenko.data.localCache.entity.MetaInfoCache
@@ -22,5 +23,7 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun bookDao(): BookDao
 
     abstract fun metaInfoDao(): MetaInfoDao
+
+    abstract fun sellerDao(): SellerDao
 
 }

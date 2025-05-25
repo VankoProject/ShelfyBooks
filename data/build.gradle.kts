@@ -49,35 +49,32 @@ hilt {
 }
 
 dependencies {
+
     implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.kotlinx.coroutines.core)
 
     //Hilt, KSP
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
 
     //Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.play.services.auth)
-    implementation(libs.firebase.analytics)
+    api(platform(libs.firebase.bom))
+    api(libs.firebase.auth)
+    api(libs.play.services.auth)
+    api(libs.firebase.analytics)
 
     //Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.logging.interceptor)
+    api(libs.retrofit)
+    api(libs.converter.gson)
+    api(libs.logging.interceptor)
 
     //Room
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
+    api(libs.room.runtime)
+    api(libs.room.ktx)
     ksp(libs.room.compiler)
 }

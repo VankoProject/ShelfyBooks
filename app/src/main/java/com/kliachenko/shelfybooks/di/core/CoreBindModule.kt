@@ -43,6 +43,7 @@ abstract class CoreBindModule {
 
         @Provides
         fun provideContext(@ApplicationContext context: Context): Context = context
+
     }
 
 }

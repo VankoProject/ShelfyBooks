@@ -75,6 +75,7 @@ dependencies {
     implementation (libs.androidx.browser)
 
     //Credentials
-    implementation("androidx.credentials:credentials:1.2.0-beta01")
-    implementation("androidx.credentials:credentials-play-services-auth:1.2.0-beta01")
+    api(libs.androidx.credentials)
+    api(libs.androidx.credentials.play.services.auth)
+
 }

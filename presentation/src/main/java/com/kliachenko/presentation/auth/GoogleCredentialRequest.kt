@@ -5,6 +5,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import javax.inject.Inject
 
 interface GoogleCredentialRequest {
+
     fun request(): GetCredentialRequest
 
     class Base @Inject constructor(

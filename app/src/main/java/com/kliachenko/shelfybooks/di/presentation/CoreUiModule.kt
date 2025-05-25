@@ -1,4 +1,4 @@
-package com.kliachenko.presentation.di
+package com.kliachenko.shelfybooks.di.presentation
 
 import com.kliachenko.presentation.books.BookStoreLinkHandler
 import com.kliachenko.presentation.core.RunAsync

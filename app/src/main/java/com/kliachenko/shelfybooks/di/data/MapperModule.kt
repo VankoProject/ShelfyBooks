@@ -1,14 +1,11 @@
-package com.kliachenko.data.di
+package com.kliachenko.shelfybooks.di.data
 
 import com.kliachenko.data.mapper.BookMapper
 import com.kliachenko.data.mapper.BookWithSellersMapper
 import com.kliachenko.data.mapper.CategoryMapper
 import com.kliachenko.data.mapper.SellerMapper
-import com.kliachenko.domain.model.BookDomain
-import com.kliachenko.domain.model.SellerDomain
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
@@ -41,14 +38,9 @@ abstract class MapperModule {
         impl: SellerMapper.ToDomain.Base
     ): SellerMapper.ToDomain
 
-    companion object {
-
-        @Provides
-        fun provideBookWithSellersMapperToDomain(
-            sellerMapper: SellerMapper<SellerDomain>
-        ): BookWithSellersMapper<BookDomain> =
-            BookWithSellersMapper.ToDomain.Base(sellerMapper)
-
-    }
+    @Binds
+    abstract fun bindBookWithSellersMapperToDomain(
+        impl: BookWithSellersMapper.ToDomain.Base
+    ): BookWithSellersMapper.ToDomain
 
 }
