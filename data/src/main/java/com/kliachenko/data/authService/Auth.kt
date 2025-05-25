@@ -23,4 +23,5 @@ interface Auth : UserSession {
         override fun isLoggedIn(): Boolean = auth.currentUser != null
 
     }
+
 }

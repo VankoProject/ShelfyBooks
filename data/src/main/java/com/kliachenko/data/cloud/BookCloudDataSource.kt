@@ -14,10 +14,10 @@ interface BookCloudDataSource {
     class Base @Inject constructor(
         private val service: BooksApiService,
     ) : BookCloudDataSource {
+
         override suspend fun books(categoryId: String): BookListResponse {
             return service.booksByCategory(categoryId)
         }
-
     }
 
     class Fake @Inject constructor() : BookCloudDataSource {

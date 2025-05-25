@@ -59,4 +59,5 @@ object NetworkModule {
     @Singleton
     fun provideBooksApiService(retrofit: Retrofit): BooksApiService =
         retrofit.create(BooksApiService::class.java)
+
 }

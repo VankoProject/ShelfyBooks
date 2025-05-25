@@ -8,7 +8,7 @@ interface SignInWithGoogle {
 
     suspend operator fun invoke(idToken: String): AuthResult
 
-    class SignInWithGoogleInteractor @Inject constructor(
+    class Interactor @Inject constructor(
         private val repository: AuthRepository
     ) : SignInWithGoogle {
 

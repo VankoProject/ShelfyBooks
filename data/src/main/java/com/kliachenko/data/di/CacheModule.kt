@@ -41,7 +41,7 @@ abstract class CacheModule {
     @Singleton
     abstract fun bindSellersCacheDataSource(
         impl: SellersCacheDataSource.Base
-    ): SellersCacheDataSource.Mutable
+    ): SellersCacheDataSource.Save
 
     companion object {
 

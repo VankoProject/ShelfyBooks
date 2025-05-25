@@ -9,11 +9,13 @@ import javax.inject.Inject
 interface Categories {
 
     operator fun invoke(): Flow<LoadResult<CategoryScreenData>>
+
+    class Interactor @Inject constructor(
+        private val repository: CategoryRepository
+    ) : Categories {
+        override fun invoke(): Flow<LoadResult<CategoryScreenData>> = repository.categories()
+
+    }
+
 }
 
-class CategoriesInteractor @Inject constructor(
-    private val repository: CategoryRepository
-) : Categories {
-    override fun invoke(): Flow<LoadResult<CategoryScreenData>> = repository.categories()
-
-}

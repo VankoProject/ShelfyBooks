@@ -1,4 +1,4 @@
-package com.kliachenko.data.core
+package com.kliachenko.domain.core
 
 interface HandleError<T: Any> {
 

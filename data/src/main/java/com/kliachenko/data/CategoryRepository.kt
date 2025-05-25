@@ -1,7 +1,7 @@
 package com.kliachenko.data
 
 import com.kliachenko.data.cloud.CategoryCloudDataSource
-import com.kliachenko.data.core.HandleError
+import com.kliachenko.domain.core.HandleError
 import com.kliachenko.data.localCache.CategoryCacheDataSource
 import com.kliachenko.data.localCache.MetaInfoCacheDataSource
 import com.kliachenko.data.mapper.CategoryMapper

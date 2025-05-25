@@ -20,4 +20,5 @@ abstract class DataSourceModule {
     abstract fun bindCategoryCloudDataSource(
         impl: CategoryCloudDataSource.Base
     ): CategoryCloudDataSource
+
 }

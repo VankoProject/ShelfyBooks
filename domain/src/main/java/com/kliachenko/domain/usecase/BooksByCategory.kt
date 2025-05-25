@@ -10,12 +10,13 @@ interface BooksByCategory {
 
     operator fun invoke(categoryId: String): Flow<LoadResult<List<BookDomain>>>
 
+    class Interactor @Inject constructor(
+        private val repository: BookRepository
+    ) : BooksByCategory {
+        override fun invoke(categoryId: String): Flow<LoadResult<List<BookDomain>>> =
+            repository.books(categoryId)
+
+    }
+
 }
 
-class BooksInteractor @Inject constructor(
-    private val repository: BookRepository
-) : BooksByCategory {
-    override fun invoke(categoryId: String): Flow<LoadResult<List<BookDomain>>> =
-        repository.books(categoryId)
-
-}
