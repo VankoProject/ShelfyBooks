@@ -1,4 +1,4 @@
-package com.kliachenko.shelfybooks.di
+package com.kliachenko.shelfybooks.di.domain
 
 import com.kliachenko.domain.usecase.BooksByCategory
 import com.kliachenko.domain.usecase.Categories
@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 interface DomainModule {
 
     @Binds
-    fun bindBooksByCategoryUseCase(impl: Categories.Interactor): BooksByCategory
+    fun bindBooksByCategoryUseCase(impl: BooksByCategory.Interactor): BooksByCategory
 
     @Binds
     fun bindCategoriesUseCase(impl: Categories.Interactor): Categories

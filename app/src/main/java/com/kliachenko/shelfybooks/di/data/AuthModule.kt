@@ -1,4 +1,4 @@
-package com.kliachenko.data.di
+package com.kliachenko.shelfybooks.di.data
 
 import com.google.firebase.auth.FirebaseAuth
 import com.kliachenko.data.authService.Auth

@@ -1,8 +1,9 @@
 package com.kliachenko.presentation.auth
 
 import com.kliachenko.domain.repository.AuthResult
+import javax.inject.Inject
 
-class AuthResultMapper : AuthResult.Mapper<String> {
+class AuthResultMapper @Inject constructor() : AuthResult.Mapper<String> {
 
     override fun mapSuccess() = ""
 

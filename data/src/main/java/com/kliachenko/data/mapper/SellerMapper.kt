@@ -28,7 +28,7 @@ interface SellerMapper<T : Any> {
             override fun map(bookId: String, sellerName: String, url: String): SellerDomain {
                 return SellerDomain(name = sellerName, url = url)
             }
-
         }
     }
+
 }

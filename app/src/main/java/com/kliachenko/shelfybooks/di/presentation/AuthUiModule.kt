@@ -1,7 +1,8 @@
-package com.kliachenko.presentation.di
+package com.kliachenko.shelfybooks.di.presentation
 
 import android.content.Context
 import androidx.credentials.CredentialManager
+import com.kliachenko.presentation.auth.GoogleCredentialRequest
 import com.kliachenko.presentation.auth.ProvideClientId
 import com.kliachenko.presentation.auth.ProvideGoogleIdToken
 import com.kliachenko.presentation.auth.ProvideNonce
@@ -32,11 +33,15 @@ abstract class AuthUiModule {
         impl: ProvideNonce.Base
     ): ProvideNonce
 
+    @Binds
+    abstract fun bindGoogleCredentialRequest(
+        impl: GoogleCredentialRequest.Base
+    ): GoogleCredentialRequest
+
     companion object {
 
         @Provides
-        @Singleton
-        fun provideCredentialManager(@ApplicationContext context: Context) =
+        fun provideCredentialManager(@ApplicationContext context: Context): CredentialManager =
             CredentialManager.create(context)
 
     }

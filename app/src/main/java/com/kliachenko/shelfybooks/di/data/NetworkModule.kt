@@ -1,4 +1,4 @@
-package com.kliachenko.data.di
+package com.kliachenko.shelfybooks.di.data
 
 import com.kliachenko.data.cloud.ApiKeyInterceptor
 import com.kliachenko.data.cloud.BooksApiService

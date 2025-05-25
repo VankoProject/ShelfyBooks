@@ -15,7 +15,7 @@ interface BookWithSellersMapper<T> {
 
     interface ToDomain : BookWithSellersMapper<BookDomain> {
         class Base @Inject constructor(
-            private val sellerMapper: SellerMapper<SellerDomain>
+            private val sellerMapper: SellerMapper.ToDomain
         ) : ToDomain {
             override fun map(book: BookCache, sellers: List<SellerLinkCache>): BookDomain {
                 return BookDomain(
