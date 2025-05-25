@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.kliachenko.domain.repository.AuthResult
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -32,25 +33,6 @@ interface Auth : UserSession {
         }
 
         override fun isLoggedIn() = auth.currentUser != null
-    }
-
-}
-
-interface AuthResult {
-
-    fun <T> map(mapper: Mapper<T>): T
-
-    interface Mapper<T> {
-        fun mapSuccess(): T
-        fun mapFailed(error: String): T
-    }
-
-    object Success : AuthResult {
-        override fun <T> map(mapper: Mapper<T>) = mapper.mapSuccess()
-    }
-
-    data class Error(private val error: String) : AuthResult {
-        override fun <T> map(mapper: Mapper<T>) = mapper.mapFailed(error)
     }
 
 }
