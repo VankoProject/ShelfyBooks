@@ -1,4 +1,4 @@
-package com.kliachenko.data.authService
+package com.kliachenko.presentation.auth
 
 import java.security.MessageDigest
 import java.util.UUID
@@ -6,10 +6,10 @@ import javax.inject.Inject
 
 interface ProvideNonce {
 
-    fun provideNonce(): String
+    fun nonce(): String
 
     class Base @Inject constructor() : ProvideNonce {
-        override fun provideNonce(): String {
+        override fun nonce(): String {
             val rawNonce = UUID.randomUUID().toString()
             val md = MessageDigest.getInstance(ALGORITHM)
             val digest = md.digest(rawNonce.toByteArray())

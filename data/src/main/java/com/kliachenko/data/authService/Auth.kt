@@ -1,38 +1,26 @@
 package com.kliachenko.data.authService
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.kliachenko.domain.repository.AuthResult
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 interface Auth : UserSession {
 
-    suspend fun authWithGoogle(googleIdToken: String): AuthResult
+    suspend fun authWithGoogle(idToken: String): FirebaseUser?
 
     class CredentialManagerGoogleAuth @Inject constructor(
-        private val auth: FirebaseAuth,
-        private val handleAuthException: HandleAuthException,
+        private val auth: FirebaseAuth
     ) : Auth {
 
-        override suspend fun authWithGoogle(googleIdToken: String): AuthResult {
-            return try {
-                val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
-                val authResult = auth.signInWithCredential(firebaseCredential).await()
-                val currentUser: FirebaseUser? = authResult.user
-                return currentUser?.run {
-                    AuthResult.Success
-                } ?: AuthResult.Error(handleAuthException.userNotFound())
-            } catch (e: FirebaseAuthException) {
-                AuthResult.Error(handleAuthException.handle(e))
-            } catch (e: Exception) {
-                AuthResult.Error(handleAuthException.handle(e))
-            }
+        override suspend fun authWithGoogle(idToken: String): FirebaseUser? {
+            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            val result = auth.signInWithCredential(credential).await()
+            return result.user
         }
 
-        override fun isLoggedIn() = auth.currentUser != null
-    }
+        override fun isLoggedIn(): Boolean = auth.currentUser != null
 
+    }
 }

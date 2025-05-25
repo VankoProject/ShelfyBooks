@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.googleid)
     debugImplementation(libs.ui.tooling)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -72,4 +73,8 @@ dependencies {
 
     //Custom Tabs
     implementation (libs.androidx.browser)
+
+    //Credentials
+    implementation("androidx.credentials:credentials:1.2.0-beta01")
+    implementation("androidx.credentials:credentials-play-services-auth:1.2.0-beta01")
 }

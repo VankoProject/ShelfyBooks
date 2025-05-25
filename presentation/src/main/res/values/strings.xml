@@ -26,4 +26,7 @@
     <string name="book_buy_button">Buy</string>
     <string name="choose_a_seller">Choose a seller</string>
     <string name="bestseller_category">BestSeller Category</string>
+
+    <!-- data module/Firebase Client Id -->
+    <string name="default_web_client_id">586730003621-c5kvgnu0od8l7pa75lkgcvj86s0g7ioa.apps.googleusercontent.com</string>
 </resources>

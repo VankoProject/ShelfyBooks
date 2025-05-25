@@ -1,24 +1,23 @@
-package com.kliachenko.data.authService
+package com.kliachenko.presentation.auth
 
+import ProvideClientId
 import androidx.credentials.GetCredentialRequest
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.kliachenko.data.core.ProvideClientId
 import javax.inject.Inject
 
-interface ProvideGoogleCredentialRequest {
-
+interface GoogleCredentialRequest {
     fun request(): GetCredentialRequest
 
     class Base @Inject constructor(
         private val clientId: ProvideClientId,
-        private val nonce: ProvideNonce,
-    ) : ProvideGoogleCredentialRequest {
+        private val nonce: ProvideNonce
+    ) : GoogleCredentialRequest {
+
         override fun request(): GetCredentialRequest {
-            val googleOptions: GetGoogleIdOption = GetGoogleIdOption.Builder()
+            val googleOptions = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
-                .setServerClientId(clientId.firebaseClientId())
-                .setNonce(nonce.provideNonce())
+                .setServerClientId(clientId.clientId())
+                .setNonce(nonce.nonce())
                 .setAutoSelectEnabled(false)
                 .build()
 
@@ -27,5 +26,4 @@ interface ProvideGoogleCredentialRequest {
                 .build()
         }
     }
-
 }
