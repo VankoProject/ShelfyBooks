@@ -1,5 +1,6 @@
 package com.kliachenko.presentation.navigation
 
+import android.net.Uri
 import kotlinx.serialization.Serializable
 
 interface AppGraph {
@@ -60,7 +61,9 @@ private object Routes {
     const val CATEGORIES = "categories"
 
     const val BOOK_PATTERN = "books/{categoryId}/{categoryName}"
-    fun booksRoute(categoryId: String, categoryName: String) = "books/$categoryId/$categoryName"
+    fun booksRoute(categoryId: String, categoryName: String) =
+        "books/$categoryId/${Uri.encode(categoryName)}categoryName"
+
 }
 
 

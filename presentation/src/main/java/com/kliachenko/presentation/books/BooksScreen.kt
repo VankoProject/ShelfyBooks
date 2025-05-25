@@ -23,6 +23,7 @@ fun BooksScreen(
     val viewModel: BooksViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val dialogState by viewModel.dialogState.collectAsState()
+    val buttonState by viewModel.buttonUiState.collectAsState()
 
     LaunchedEffect(categoryId) {
         viewModel.load(categoryId, categoryName)
@@ -30,6 +31,7 @@ fun BooksScreen(
 
 
     uiState.Show(
+        buttonUiState = buttonState,
         dialogUiState = dialogState,
         categoryName = displayCategoryName,
         navigate = { navigation.popBackStack() },

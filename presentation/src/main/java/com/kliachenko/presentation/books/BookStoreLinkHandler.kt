@@ -13,6 +13,7 @@ interface BookStoreLinkHandler {
     class Base @Inject constructor(
         @ApplicationContext private val context: Context
     ) : BookStoreLinkHandler {
+
         override fun open(url: String) {
             val tabBuilder = CustomTabsIntent.Builder()
                 .setToolbarCornerRadiusDp(8)
@@ -22,6 +23,6 @@ interface BookStoreLinkHandler {
             val customTabsIntent = tabBuilder.build()
             customTabsIntent.launchUrl(context, Uri.parse(url))
         }
-
     }
+
 }

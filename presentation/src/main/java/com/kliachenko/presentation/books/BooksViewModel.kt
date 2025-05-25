@@ -25,6 +25,10 @@ class BooksViewModel @Inject constructor(
     private var _dialogState = MutableStateFlow<DialogUiState>(DialogUiState.None)
     val dialogState: StateFlow<DialogUiState> = _dialogState
 
+    private var _buttonUiState =
+        MutableStateFlow<SellersButtonUiState>(SellersButtonUiState.BuyAction)
+    val buttonUiState: StateFlow<SellersButtonUiState> = _buttonUiState
+
     fun load(categoryId: String, categoryName: String) {
         _uiState.value = BookUiState.Progress(categoryName = categoryName)
         runAsync(
@@ -35,10 +39,12 @@ class BooksViewModel @Inject constructor(
     }
 
     fun sellers(sellers: List<SellerUi>) {
+        _buttonUiState.value = SellersButtonUiState.Progress
         _dialogState.value = DialogUiState.Sellers(
             sellers = sellers,
             onSellerClick = { seller -> seller.buy(bookStoreLinkHandler) }
         )
+        _buttonUiState.value = SellersButtonUiState.BuyAction
     }
 
     fun dismissDialog() {

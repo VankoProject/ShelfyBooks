@@ -5,6 +5,7 @@ interface CategoryScreenUiData {
     fun <T> map(mapper: Mapper<T>): T
 
     interface Mapper<T> {
+
         fun map(publishedDate: String, categories: List<CategoryUi>): T
     }
 
@@ -12,9 +13,10 @@ interface CategoryScreenUiData {
         private val publishedDate: String,
         private val categories: List<CategoryUi>
     ) : CategoryScreenUiData {
+
         override fun <T> map(mapper: Mapper<T>): T {
             return mapper.map(publishedDate, categories)
         }
-
     }
+
 }

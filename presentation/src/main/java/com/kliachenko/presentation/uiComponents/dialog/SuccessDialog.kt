@@ -40,7 +40,5 @@ fun SuccessDialog(
 @Preview(showBackground = true, apiLevel = 34)
 @Composable
 fun PreviewSuccessDialog() {
-    SuccessDialog(message = stringResource(R.string.you_re_signed_in)) {
-        
-    }
+    SuccessDialog(message = stringResource(R.string.you_re_signed_in)) {}
 }

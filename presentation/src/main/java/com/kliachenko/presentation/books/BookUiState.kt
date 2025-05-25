@@ -25,6 +25,7 @@ interface BookUiState {
 
     @Composable
     fun Show(
+        buttonUiState: SellersButtonUiState,
         dialogUiState: DialogUiState,
         categoryName: String,
         navigate: () -> Unit,
@@ -36,6 +37,7 @@ interface BookUiState {
     @OptIn(ExperimentalMaterial3Api::class)
     abstract class Abstract(
         private val content: @Composable (
+            buttonState: SellersButtonUiState,
             dialogUiState: DialogUiState,
             onButtonClick: () -> Unit,
             onSellersClick: (List<SellerUi>) -> Unit,
@@ -45,6 +47,7 @@ interface BookUiState {
 
         @Composable
         override fun Show(
+            buttonUiState: SellersButtonUiState,
             dialogUiState: DialogUiState,
             categoryName: String,
             navigate: () -> Unit,
@@ -67,7 +70,7 @@ interface BookUiState {
                 }
             ) { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
-                    content(dialogUiState, onRetry, onSellersClick, onDialogDismiss)
+                    content(buttonUiState, dialogUiState, onRetry, onSellersClick, onDialogDismiss)
                 }
             }
         }
@@ -77,20 +80,21 @@ interface BookUiState {
 
     data class Error(
         private val errorMessage: String
-    ) : Abstract(content = { _, onButtonClick, _, _ ->
+    ) : Abstract(content = { _,_, onButtonClick, _, _ ->
         BooksErrorStateContent(errorMessage, onButtonClick)
     })
 
     data class Progress(
         private val categoryName: String
-    ) : Abstract(content = { _, _, _, _ ->
+    ) : Abstract(content = { _,_, _, _, _ ->
         BooksProgressStateContent(categoryName)
     })
 
     data class Success(
         private val books: List<BookUi>,
-    ) : Abstract(content = { dialogUiState, _, onSellersClick, onDialodDismiss ->
+    ) : Abstract(content = { buttonState, dialogUiState, _, onSellersClick, onDialodDismiss ->
         BooksSuccessStateContent(
+            buttonUiState = buttonState,
             dialogUiState = dialogUiState,
             books = books,
             onSellersClick = onSellersClick,

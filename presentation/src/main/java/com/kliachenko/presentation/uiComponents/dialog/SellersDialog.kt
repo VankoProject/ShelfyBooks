@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.model.SellerUi
 
@@ -33,5 +34,29 @@ fun SellersDialog(
             }
         }
     )
+
+}
+
+@Preview(showBackground = true, apiLevel = 34)
+@Composable
+fun PreviewSellersDialog() {
+    SellersDialog(
+        sellers = listOf(
+            SellerUi.Base(
+                name = "Amazon",
+                url = "http://fake"
+            ),
+            SellerUi.Base(
+                name = "Apple",
+                url = "http://fake"
+            ), SellerUi.Base(
+                name = "Walmart",
+                url = "http://fake"
+            )
+        ),
+        onDismiss = {},
+        onSellerClick = {}
+    )
+
 }
 

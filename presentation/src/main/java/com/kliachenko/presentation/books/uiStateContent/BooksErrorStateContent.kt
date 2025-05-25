@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.BookUiState
+import com.kliachenko.presentation.books.SellersButtonUiState
+import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
 
 @Composable
 fun BooksErrorStateContent(
@@ -48,9 +50,12 @@ fun BooksErrorStateContent(
 @Composable
 fun PreviewErrorState() {
     BookUiState.Error("No internet connection").Show(
+        buttonUiState = SellersButtonUiState.BuyAction,
+        dialogUiState = DialogUiState.None,
         categoryName = "Hardcover Fiction Category",
         navigate = {},
         onRetry = {},
-        onSellersClick = {}
+        onSellersClick = {},
+        onDialogDismiss = {}
     )
 }

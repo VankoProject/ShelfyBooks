@@ -32,5 +32,4 @@ class CategoriesViewModel @Inject constructor(
         }
     }
 
-
 }

@@ -7,4 +7,5 @@ class AuthResultMapper : AuthResult.Mapper<String> {
     override fun mapSuccess() = ""
 
     override fun mapFailed(error: String) = error
+
 }

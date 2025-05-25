@@ -1,5 +1,6 @@
 package com.kliachenko.presentation.auth
 
+import com.kliachenko.domain.core.HandleError
 import com.kliachenko.domain.repository.AuthResult
 import com.kliachenko.domain.usecase.SignInWithGoogle
 import com.kliachenko.presentation.core.BaseViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val signInWithGoogle: SignInWithGoogle,
     private val resultMapper: AuthResultMapper,
+    private val handleError: HandleError<String>,
     runAsync: RunAsync
 ) : BaseViewModel(runAsync) {
 
@@ -42,7 +44,15 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun showError(e: Exception) {
+        _dialogUiState.value = DialogUiState.Error(
+            handleError.handle(e)
+        )
+    }
+
     fun dismissDialog() {
         _dialogUiState.value = DialogUiState.None
     }
+
+
 }

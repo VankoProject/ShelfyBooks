@@ -1,9 +1,8 @@
 package com.kliachenko.shelfybooks.di
 
 import com.kliachenko.domain.usecase.BooksByCategory
-import com.kliachenko.domain.usecase.BooksInteractor
 import com.kliachenko.domain.usecase.Categories
-import com.kliachenko.domain.usecase.CategoriesInteractor
+import com.kliachenko.domain.usecase.SignInWithGoogle
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,9 +13,12 @@ import dagger.hilt.android.components.ViewModelComponent
 interface DomainModule {
 
     @Binds
-    abstract fun bindBooksByCategoryUseCase(impl: BooksInteractor): BooksByCategory
+    fun bindBooksByCategoryUseCase(impl: Categories.Interactor): BooksByCategory
 
     @Binds
-    abstract fun bindCategoriesUseCase(impl: CategoriesInteractor): Categories
+    fun bindCategoriesUseCase(impl: Categories.Interactor): Categories
+
+    @Binds
+    fun bindSignInWithGoogle(impl: SignInWithGoogle.Interactor): SignInWithGoogle
 
 }

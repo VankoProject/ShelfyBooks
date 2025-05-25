@@ -1,6 +1,5 @@
 package com.kliachenko.presentation.auth
 
-import ProvideClientId
 import androidx.credentials.GetCredentialRequest
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import javax.inject.Inject
@@ -26,4 +25,5 @@ interface GoogleCredentialRequest {
                 .build()
         }
     }
+
 }

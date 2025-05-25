@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.BookUiState
+import com.kliachenko.presentation.books.SellersButtonUiState
+import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
 
 @Composable
 fun BooksProgressStateContent(categoryName: String) {
@@ -41,9 +43,13 @@ fun BooksProgressStateContent(categoryName: String) {
 @Composable
 fun PreviewProgressState() {
     BookUiState.Progress(categoryName = "Hardcover Fiction").Show(
+        buttonUiState = SellersButtonUiState.BuyAction,
+        dialogUiState = DialogUiState.None,
         categoryName = "Hardcover Fiction Category",
         navigate = {},
         onRetry = {},
-        onSellersClick = {}
+        onSellersClick = {},
+        onDialogDismiss = {}
     )
+
 }

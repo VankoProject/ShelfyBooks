@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kliachenko.presentation.R
+import com.kliachenko.presentation.books.SellersButtonUiState
 import com.kliachenko.presentation.books.model.BookUi
 import com.kliachenko.presentation.books.model.SellerUi
 import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
@@ -21,6 +22,7 @@ import com.kliachenko.presentation.uiComponents.dialog.HandleDialog
 
 @Composable
 fun BooksSuccessStateContent(
+    buttonUiState: SellersButtonUiState,
     dialogUiState: DialogUiState,
     books: List<BookUi>,
     onSellersClick: (List<SellerUi>) -> Unit,
@@ -42,7 +44,7 @@ fun BooksSuccessStateContent(
             )
         }
         books.forEach { bookUi ->
-            BookItem(book = bookUi, onSellersClick)
+            BookItem(book = bookUi, buttonUiState, onSellersClick)
         }
         HandleDialog(dialogUiState = dialogUiState, onDismiss = onDialogDismiss)
     }
@@ -83,7 +85,8 @@ fun PreviewBooksSuccessStateContent() {
             )
         ),
         onSellersClick = {},
-        onDialogDismiss = {}
+        onDialogDismiss = {},
+        buttonUiState = SellersButtonUiState.BuyAction
     )
 
 }

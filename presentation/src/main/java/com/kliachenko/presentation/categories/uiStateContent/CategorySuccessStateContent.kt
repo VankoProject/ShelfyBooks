@@ -1,6 +1,5 @@
 package com.kliachenko.presentation.categories.uiStateContent
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.categories.CategoriesUiState
 import com.kliachenko.presentation.categories.models.CategoryUi
+import com.kliachenko.presentation.ui.theme.ShelfyBooksTheme
 
 @Composable
 fun CategorySuccessStateContent(
@@ -68,15 +68,16 @@ fun PreviewSuccessStateContent() {
         CategoryUi.Base("3", "History", 5, "weekly")
     )
 
-    MaterialTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+    ShelfyBooksTheme {
+        Surface {
             CategoriesUiState.Success(
                 publishedDate = "2025-05-23",
                 categories = fakeCategories,
-            ).Show(onRetry = { }) { _, _ -> }
+            ).Show(
+                onRetry = {},
+                onItemClick = { _, _ -> }
+            )
         }
     }
+
 }
