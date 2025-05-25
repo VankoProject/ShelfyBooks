@@ -2,9 +2,6 @@
     <string name="app_name">ShelfyBooks</string>
     <string name="user_not_found">User not found</string>
 
-    <!-- data module/Firebase Client Id -->
-    <string name="default_web_client_id">586730003621-c5kvgnu0od8l7pa75lkgcvj86s0g7ioa.apps.googleusercontent.com</string>
-
     <!-- data module/Firebase Authentication Errors -->
     <string name="error_invalid_credentials">The credentials provided are invalid.</string>
     <string name="error_user_collision">This email is already associated with another account.</string>

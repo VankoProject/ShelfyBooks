@@ -4,12 +4,13 @@ import com.kliachenko.data.CategoryRepositoryImpl
 import com.kliachenko.data.cloud.CategoryCloudDataSource
 import com.kliachenko.data.cloud.cloudResponse.BestsellersResult
 import com.kliachenko.data.cloud.cloudResponse.CategoryCloud
-import com.kliachenko.data.core.HandleError
 import com.kliachenko.data.localCache.CategoryCacheDataSource
 import com.kliachenko.data.localCache.MetaInfoCacheDataSource
 import com.kliachenko.data.localCache.entity.CategoryCache
 import com.kliachenko.data.mapper.CategoryMapper
+import com.kliachenko.domain.core.HandleError
 import com.kliachenko.domain.model.CategoryDomain
+import com.kliachenko.domain.model.CategoryScreenData
 import com.kliachenko.domain.repository.LoadResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -62,23 +63,27 @@ class CategoryRepositoryTest {
     @Test
     fun testFirstRunEmptySuccess() = runBlocking {
         categoryCacheDataSource.cacheEmpty()
+        metaInfoCacheDataSource.cacheEmpty()
         categoryCloudDataSource.successLoadResult()
         val actual = repository.categories().toList()
         categoryCloudDataSource.checkCalled(1)
         val expected = listOf(
             LoadResult.Success(
-                listOf(
-                    CategoryDomain(
-                        categoryId = "cloud_id_1",
-                        categoryName = "Cloud Category 1",
-                        booksCount = 42,
-                        updatePeriod = "WEEKLY"
-                    ),
-                    CategoryDomain(
-                        categoryId = "cloud_id_2",
-                        categoryName = "Cloud Category 2",
-                        booksCount = 24,
-                        updatePeriod = "MONTHLY"
+                CategoryScreenData(
+                    publishedDate = "2025-01-01",
+                    categories = listOf(
+                        CategoryDomain(
+                            categoryId = "cloud_id_1",
+                            categoryName = "Cloud Category 1",
+                            booksCount = 42,
+                            updatePeriod = "WEEKLY"
+                        ),
+                        CategoryDomain(
+                            categoryId = "cloud_id_2",
+                            categoryName = "Cloud Category 2",
+                            booksCount = 24,
+                            updatePeriod = "MONTHLY"
+                        )
                     )
                 )
             )
@@ -89,22 +94,26 @@ class CategoryRepositoryTest {
     @Test
     fun testNotFirstRunSuccess() = runBlocking {
         categoryCacheDataSource.cacheNotEmpty()
+        metaInfoCacheDataSource.cacheNotEmpty()
         val actual = repository.categories().toList()
         categoryCloudDataSource.checkCalled(0)
         val expected = listOf(
             LoadResult.Success(
-                listOf(
-                    CategoryDomain(
-                        categoryId = "cache_id_1",
-                        categoryName = "Cache Category 1",
-                        booksCount = 101,
-                        updatePeriod = "ONCE"
-                    ),
-                    CategoryDomain(
-                        categoryId = "cache_id_2",
-                        categoryName = "Cache Category 2",
-                        booksCount = 202,
-                        updatePeriod = "NEVER"
+                CategoryScreenData(
+                    publishedDate = "2025-01-01",
+                    categories = listOf(
+                        CategoryDomain(
+                            categoryId = "cache_id_1",
+                            categoryName = "Cache Category 1",
+                            booksCount = 101,
+                            updatePeriod = "ONCE"
+                        ),
+                        CategoryDomain(
+                            categoryId = "cache_id_2",
+                            categoryName = "Cache Category 2",
+                            booksCount = 202,
+                            updatePeriod = "NEVER"
+                        )
                     )
                 )
             )
@@ -124,14 +133,6 @@ class CategoryRepositoryTest {
         Assert.assertEquals(expected, actual)
     }
 
-    @Test
-    fun getPublishedDateCorrectly() = runBlocking {
-        metaInfoCacheDataSource.cacheNotEmpty()
-        val expected = "2025-01-01"
-        val actual = repository.publishedDate()
-        categoryCloudDataSource.checkCalled(0)
-        Assert.assertEquals(expected, actual)
-    }
 }
 
 private class FakeCategoryCloudDataSource : CategoryCloudDataSource {

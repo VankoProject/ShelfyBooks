@@ -1,11 +1,11 @@
 package com.kliachenko.data
 
 import com.kliachenko.data.cloud.CategoryCloudDataSource
-import com.kliachenko.data.core.HandleError
+import com.kliachenko.domain.core.HandleError
 import com.kliachenko.data.localCache.CategoryCacheDataSource
 import com.kliachenko.data.localCache.MetaInfoCacheDataSource
 import com.kliachenko.data.mapper.CategoryMapper
-import com.kliachenko.domain.model.CategoryDomain
+import com.kliachenko.domain.model.CategoryScreenData
 import com.kliachenko.domain.repository.CategoryRepository
 import com.kliachenko.domain.repository.LoadResult
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ class CategoryRepositoryImpl @Inject constructor(
     private val handleError: HandleError<String>
 ) : CategoryRepository {
 
-    override fun categories(): Flow<LoadResult<List<CategoryDomain>>> = flow {
+    override fun categories(): Flow<LoadResult<CategoryScreenData>> = flow {
         val cached = categoryCacheDataSource.read().first()
         if (cached.isEmpty()) {
             try {
@@ -43,15 +43,14 @@ class CategoryRepositoryImpl @Inject constructor(
                 return@flow
             }
         }
-        val mappedCategoriesFlow: Flow<LoadResult<List<CategoryDomain>>> =
+        val publishedDate = metaInfoCacheDataSource.read()
+        val mappedCategoriesFlow: Flow<LoadResult<CategoryScreenData>> =
             categoryCacheDataSource.read().map { list ->
-                LoadResult.Success(list.map { it.map(mapCategoryToDomain) })
+                val categoriesDomain = list.map { it.map(mapCategoryToDomain) }
+                LoadResult.Success(CategoryScreenData(publishedDate, categoriesDomain))
             }
-
         emitAll(mappedCategoriesFlow)
     }
-
-    override suspend fun publishedDate() = metaInfoCacheDataSource.read()
 
 }
 

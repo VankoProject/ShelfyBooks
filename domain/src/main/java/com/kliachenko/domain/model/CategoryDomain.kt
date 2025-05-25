@@ -23,7 +23,6 @@ interface CategoryMapper<T : Any> {
         booksCount: Int,
         updatePeriod: String
     ): T
-
 }
 
 

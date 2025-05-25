@@ -8,7 +8,6 @@ data class SellerDomain(
 }
 
 interface MapSeller {
-
     fun <T : Any> map(mapper: SellerMapper<T>): T
 
 }

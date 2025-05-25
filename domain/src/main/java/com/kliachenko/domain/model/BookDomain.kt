@@ -11,13 +11,11 @@ data class BookDomain(
 ) : MapBook {
     override fun <T : Any> map(mapper: BookMapper<T>) =
         mapper.map(title, description, author, publisher, imageUrl, rank, sellers)
-
 }
 
 interface MapBook {
 
     fun <T : Any> map(mapper: BookMapper<T>): T
-
 }
 
 interface BookMapper<T : Any> {

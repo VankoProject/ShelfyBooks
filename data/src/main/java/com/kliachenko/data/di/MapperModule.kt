@@ -1,8 +1,12 @@
 package com.kliachenko.data.di
 
 import com.kliachenko.data.mapper.BookMapper
+import com.kliachenko.data.mapper.BookWithSellersMapper
 import com.kliachenko.data.mapper.CategoryMapper
 import com.kliachenko.data.mapper.SellerMapper
+import com.kliachenko.domain.model.BookDomain
+import com.kliachenko.domain.model.SellerDomain
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,22 +14,41 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class MapperModule {
+abstract class MapperModule {
 
-    @Provides
-    fun provideCategoryMapperToCache(): CategoryMapper.ToCache =
-        CategoryMapper.ToCache.Base()
+    @Binds
+    abstract fun bindCategoryMapperToCache(
+        impl: CategoryMapper.ToCache.Base
+    ): CategoryMapper.ToCache
 
-    @Provides
-    fun provideCategoryMapperToDomain(): CategoryMapper.ToDomain =
-        CategoryMapper.ToDomain.Base()
+    @Binds
+    abstract fun bindCategoryMapperToDomain(
+        impl: CategoryMapper.ToDomain.Base
+    ): CategoryMapper.ToDomain
 
-    @Provides
-    fun provideBookMapperToCache(): BookMapper.ToCache =
-        BookMapper.ToCache.Base()
+    @Binds
+    abstract fun bindBookMapperToCache(
+        impl: BookMapper.ToCache.Base
+    ): BookMapper.ToCache
 
-    @Provides
-    fun provideSellerMapperToCache(): SellerMapper.ToCache =
-        SellerMapper.ToCache.Base()
+    @Binds
+    abstract fun bindSellerMapperToCache(
+        impl: SellerMapper.ToCache.Base
+    ): SellerMapper.ToCache
+
+    @Binds
+    abstract fun bindSellerMapperToDomain(
+        impl: SellerMapper.ToDomain.Base
+    ): SellerMapper.ToDomain
+
+    companion object {
+
+        @Provides
+        fun provideBookWithSellersMapperToDomain(
+            sellerMapper: SellerMapper<SellerDomain>
+        ): BookWithSellersMapper<BookDomain> =
+            BookWithSellersMapper.ToDomain.Base(sellerMapper)
+
+    }
 
 }

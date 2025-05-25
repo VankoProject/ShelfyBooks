@@ -12,6 +12,7 @@ interface CategoryCloudDataSource {
     class Base @Inject constructor(
         private val service: BooksApiService,
     ) : CategoryCloudDataSource {
+
         override suspend fun overview(): BestsellersResult {
             return service.overview().result
         }

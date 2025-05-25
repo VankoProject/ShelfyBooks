@@ -5,13 +5,11 @@ data class CategoryScreenData(
     private val categories: List<CategoryDomain>
 ) : MapScreenData {
     override fun <T : Any> map(mapper: ScreenDataMapper<T>) = mapper.map(publishedDate, categories)
-
 }
 
 interface MapScreenData {
 
     fun <T : Any> map(mapper: ScreenDataMapper<T>): T
-
 }
 
 interface ScreenDataMapper<T : Any> {

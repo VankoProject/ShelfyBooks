@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.kliachenko.data.core.HandleError
+import com.kliachenko.domain.core.HandleError
 import com.kliachenko.data.core.ProvideExceptionMessage
 import com.kliachenko.data.core.ProvideResources
 import java.net.UnknownHostException
