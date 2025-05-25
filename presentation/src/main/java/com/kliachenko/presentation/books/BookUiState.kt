@@ -19,31 +19,38 @@ import com.kliachenko.presentation.books.model.SellerUi
 import com.kliachenko.presentation.books.uiStateContent.BooksErrorStateContent
 import com.kliachenko.presentation.books.uiStateContent.BooksProgressStateContent
 import com.kliachenko.presentation.books.uiStateContent.BooksSuccessStateContent
+import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
 
 interface BookUiState {
 
     @Composable
     fun Show(
+        dialogUiState: DialogUiState,
         categoryName: String,
         navigate: () -> Unit,
         onRetry: () -> Unit,
-        onSellersClick: (List<SellerUi>) -> Unit
+        onSellersClick: (List<SellerUi>) -> Unit,
+        onDialogDismiss: () -> Unit
     ) = Unit
 
     @OptIn(ExperimentalMaterial3Api::class)
     abstract class Abstract(
         private val content: @Composable (
+            dialogUiState: DialogUiState,
             onButtonClick: () -> Unit,
             onSellersClick: (List<SellerUi>) -> Unit,
+            onDialogDismiss: () -> Unit
         ) -> Unit
     ) : BookUiState {
 
         @Composable
         override fun Show(
+            dialogUiState: DialogUiState,
             categoryName: String,
             navigate: () -> Unit,
             onRetry: () -> Unit,
-            onSellersClick: (List<SellerUi>) -> Unit
+            onSellersClick: (List<SellerUi>) -> Unit,
+            onDialogDismiss: () -> Unit
         ) {
             Scaffold(
                 topBar = {
@@ -60,7 +67,7 @@ interface BookUiState {
                 }
             ) { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
-                    content(onRetry, onSellersClick)
+                    content(dialogUiState, onRetry, onSellersClick, onDialogDismiss)
                 }
             }
         }
@@ -70,19 +77,25 @@ interface BookUiState {
 
     data class Error(
         private val errorMessage: String
-    ) : Abstract(content = { onButtonClick, _ ->
+    ) : Abstract(content = { _, onButtonClick, _, _ ->
         BooksErrorStateContent(errorMessage, onButtonClick)
     })
 
     data class Progress(
         private val categoryName: String
-    ) : Abstract(content = { _, _ ->
+    ) : Abstract(content = { _, _, _, _ ->
         BooksProgressStateContent(categoryName)
     })
 
     data class Success(
         private val books: List<BookUi>,
-    ) : Abstract(content = { _, onSellersClick ->
-        BooksSuccessStateContent(books, onSellersClick = onSellersClick)
+    ) : Abstract(content = { dialogUiState, _, onSellersClick, onDialodDismiss ->
+        BooksSuccessStateContent(
+            dialogUiState = dialogUiState,
+            books = books,
+            onSellersClick = onSellersClick,
+            onDialogDismiss = onDialodDismiss
+        )
     })
+
 }

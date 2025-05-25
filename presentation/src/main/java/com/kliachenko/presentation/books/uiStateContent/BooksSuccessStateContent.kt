@@ -16,11 +16,15 @@ import androidx.compose.ui.unit.dp
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.model.BookUi
 import com.kliachenko.presentation.books.model.SellerUi
+import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
+import com.kliachenko.presentation.uiComponents.dialog.HandleDialog
 
 @Composable
 fun BooksSuccessStateContent(
+    dialogUiState: DialogUiState,
     books: List<BookUi>,
-    onSellersClick: (List<SellerUi>) -> Unit
+    onSellersClick: (List<SellerUi>) -> Unit,
+    onDialogDismiss: () -> Unit,
 ) {
     Column {
         Row(
@@ -40,6 +44,7 @@ fun BooksSuccessStateContent(
         books.forEach { bookUi ->
             BookItem(book = bookUi, onSellersClick)
         }
+        HandleDialog(dialogUiState = dialogUiState, onDismiss = onDialogDismiss)
     }
 }
 
@@ -47,7 +52,8 @@ fun BooksSuccessStateContent(
 @Composable
 fun PreviewBooksSuccessStateContent() {
     BooksSuccessStateContent(
-        listOf(
+        dialogUiState = DialogUiState.None,
+        books = listOf(
             BookUi.Base(
                 title = "Preview Title",
                 description = "A young man becomes the caretaker.",
@@ -75,6 +81,9 @@ fun PreviewBooksSuccessStateContent() {
                 rank = 3,
                 sellers = listOf(SellerUi.Base("Amazon", ""), SellerUi.Base("Apple", ""))
             )
-        )
-    ) { }
+        ),
+        onSellersClick = {},
+        onDialogDismiss = {}
+    )
+
 }

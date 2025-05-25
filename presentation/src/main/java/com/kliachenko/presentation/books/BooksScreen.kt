@@ -8,7 +8,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.navigation.NavigationState
-import com.kliachenko.presentation.uiComponents.dialog.DialogUiState
 
 @Composable
 fun BooksScreen(
@@ -25,21 +24,17 @@ fun BooksScreen(
     val uiState by viewModel.uiState.collectAsState()
     val dialogState by viewModel.dialogState.collectAsState()
 
-    if (dialogState !is DialogUiState.None)
-        dialogState.Show(
-            onDismiss = { viewModel.dismissDialog() },
-            onRetryButtonClick = { },
-            onCancelButtonClick = { })
-
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(categoryId) {
         viewModel.load(categoryId, categoryName)
     }
 
 
     uiState.Show(
+        dialogUiState = dialogState,
         categoryName = displayCategoryName,
         navigate = { navigation.popBackStack() },
         onRetry = { viewModel.load(categoryId, categoryName) },
-        onSellersClick = { sellers -> viewModel.sellers(sellers = sellers) })
+        onSellersClick = { sellers -> viewModel.sellers(sellers = sellers) },
+        onDialogDismiss = { viewModel.dismissDialog() })
 
 }

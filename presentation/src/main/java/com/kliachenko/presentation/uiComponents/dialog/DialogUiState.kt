@@ -3,6 +3,20 @@ package com.kliachenko.presentation.uiComponents.dialog
 import androidx.compose.runtime.Composable
 import com.kliachenko.presentation.books.model.SellerUi
 
+@Composable
+fun HandleDialog(
+    dialogUiState: DialogUiState,
+    onDismiss: () -> Unit,
+    onRetryButtonClick: () -> Unit = {},
+    onCancelButtonClick: () -> Unit = {},
+) {
+    dialogUiState.Show(
+        onDismiss = onDismiss,
+        onRetryButtonClick = onRetryButtonClick,
+        onCancelButtonClick = onCancelButtonClick
+    )
+}
+
 interface DialogUiState {
 
     @Composable
