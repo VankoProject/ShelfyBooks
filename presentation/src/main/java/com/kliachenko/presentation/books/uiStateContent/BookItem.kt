@@ -1,6 +1,7 @@
 package com.kliachenko.presentation.books.uiStateContent
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -22,16 +23,20 @@ fun BookItem(
 
     val context = LocalContext.current
 
+    val imageRequest = remember(key1 = book.getImageUrl()) {
+        ImageRequest.Builder(context)
+            .data(book.getImageUrl())
+            .addHeader("User-Agent", "ShelfyBooks-Client")
+            .crossfade(true)
+            .build()
+    }
+
     book.Show(
         buttonUiState = buttonUiState,
         onSellersClick = onSellersClick,
         imageContent = { modifier ->
             AsyncImage(
-                model = ImageRequest.Builder(context)
-                    .data(book.getImageUrl())
-                    .addHeader("User-Agent", "ShelfyBooks-Client")
-                    .crossfade(true)
-                    .build(),
+                model = imageRequest,
                 contentDescription = stringResource(R.string.book_image),
                 modifier = modifier,
                 contentScale = ContentScale.Fit,

@@ -40,6 +40,8 @@ interface BookUi {
 
     fun getImageUrl(): String
 
+    fun bookTitle(): String
+
     data class Base(
         private val title: String,
         private val description: String,
@@ -126,6 +128,8 @@ interface BookUi {
         }
 
         override fun getImageUrl() = imageUrl
+
+        override fun bookTitle() = title
     }
 }
 

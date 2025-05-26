@@ -62,7 +62,7 @@ private object Routes {
 
     const val BOOK_PATTERN = "books/{categoryId}/{categoryName}"
     fun booksRoute(categoryId: String, categoryName: String) =
-        "books/$categoryId/${Uri.encode(categoryName)}categoryName"
+        "books/$categoryId/${Uri.encode(categoryName)}"
 
 }
 
