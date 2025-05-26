@@ -3,6 +3,8 @@ package com.kliachenko.shelfybooks.di.core
 import android.content.Context
 import com.kliachenko.data.core.ProvideExceptionMessage
 import com.kliachenko.data.core.ProvideResources
+import com.kliachenko.presentation.auth.HandleInternetConnection
+import com.kliachenko.shelfybooks.core.HandleInternetConnectionImpl
 import com.kliachenko.shelfybooks.core.ProvideExceptionMessageImpl
 import com.kliachenko.shelfybooks.core.ProvideResourcesImpl
 import dagger.Binds
@@ -38,6 +40,12 @@ abstract class CoreBindModule {
     abstract fun bindNetworkExceptionMessage(
         impl: ProvideExceptionMessageImpl
     ): ProvideExceptionMessage.NetworkExceptionMessage
+
+    @Binds
+    @Singleton
+    abstract fun bindHandleInternetConnection(
+        impl: HandleInternetConnectionImpl
+    ): HandleInternetConnection
 
     companion object {
 

@@ -7,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import androidx.credentials.exceptions.GetCredentialException
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kliachenko.presentation.navigation.AppGraph
@@ -27,27 +26,31 @@ fun AuthScreen(
     val activity = LocalContext.current as Activity
     val coroutineScope = rememberCoroutineScope()
 
-    authUiState.Show(
-        dialogUiState = dialogUiState,
-        onSignIn = {
-            coroutineScope.launch {
-                val token = try {
-                    googleIdToken.token(activity)
-                } catch (e: GetCredentialException) {
-                    viewModel.showError(e)
-                    null
-                } catch (e: Exception) {
-                    viewModel.showError(e)
-                    null
-                }
+    val onSignIn: () -> Unit = {
+        viewModel.dismissDialog()
+        coroutineScope.launch {
+            val result = googleIdToken.token(activity)
+            result.map(object : TokenResult.Mapper<Unit> {
 
-                if (token != null) {
-                    viewModel.signInWithGoogle(token) {
+                override fun mapSuccess(data: String) {
+                    viewModel.signInWithGoogle(data) {
                         navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
                     }
                 }
-            }
-        },
+
+                override fun mapError(exception: Exception) {
+                    viewModel.showError(exception)
+                }
+
+                override fun mapCanceled() {}
+
+            })
+        }
+    }
+
+    authUiState.Show(
+        dialogUiState = dialogUiState,
+        onSignIn = onSignIn,
         onDismiss = { viewModel.dismissDialog() })
 
 }
