@@ -38,7 +38,7 @@ fun SplashScreen(
 ) {
 
     val viewModel: SplashViewModel = hiltViewModel()
-    val isAuthorized by viewModel.authState.collectAsStateWithLifecycle()
+    val isAuthorized by viewModel.appEntryScreenState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = isAuthorized) {
         when (isAuthorized) {

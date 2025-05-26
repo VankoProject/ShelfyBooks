@@ -1,4 +1,4 @@
-package com.kliachenko.presentation
+package com.kliachenko.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
