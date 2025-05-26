@@ -66,7 +66,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 
     //Coil
-    implementation(libs.coil.compose)
+    implementation ("io.coil-kt:coil-compose:2.4.0")
 
     //Serialization
     implementation(libs.kotlinx.serialization.core)

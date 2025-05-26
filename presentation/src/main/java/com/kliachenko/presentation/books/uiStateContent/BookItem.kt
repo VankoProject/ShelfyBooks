@@ -2,10 +2,12 @@ package com.kliachenko.presentation.books.uiStateContent
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import coil3.compose.AsyncImage
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.SellersButtonUiState
 import com.kliachenko.presentation.books.model.BookUi
@@ -17,12 +19,19 @@ fun BookItem(
     buttonUiState: SellersButtonUiState,
     onSellersClick: (List<SellerUi>) -> Unit
 ) {
+
+    val context = LocalContext.current
+
     book.Show(
         buttonUiState = buttonUiState,
         onSellersClick = onSellersClick,
         imageContent = { modifier ->
             AsyncImage(
-                model = book.getImageUrl(),
+                model = ImageRequest.Builder(context)
+                    .data(book.getImageUrl())
+                    .addHeader("User-Agent", "ShelfyBooks-Client")
+                    .crossfade(true)
+                    .build(),
                 contentDescription = stringResource(R.string.book_image),
                 modifier = modifier,
                 contentScale = ContentScale.Fit,

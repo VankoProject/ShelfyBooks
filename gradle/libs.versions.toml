@@ -1,7 +1,6 @@
 [versions]
 agp = "8.5.2"
 browser = "1.8.0"
-coilCompose = "3.2.0"
 credentials = "1.5.0"
 credentialsPlayServicesAuth = "1.2.0-beta01"
 javaxInject = "1"
@@ -43,7 +42,6 @@ googleid = "1.1.1"
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
 androidx-credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
-coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
