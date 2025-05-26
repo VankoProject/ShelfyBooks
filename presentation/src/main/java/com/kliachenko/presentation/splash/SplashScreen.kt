@@ -7,13 +7,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,13 +38,16 @@ fun SplashScreen(
 ) {
 
     val viewModel: SplashViewModel = hiltViewModel()
-    val isAuthorized by viewModel.isAuthorized.collectAsStateWithLifecycle()
+    val isAuthorized by viewModel.authState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = isAuthorized) {
-        if (isAuthorized)
-            navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
-        else
-            navigation.navigateAndReplace(AppGraph.AuthGraph.Auth)
+        when (isAuthorized) {
+            AuthState.Authorized ->
+                navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
+            AuthState.Unauthorized ->
+                navigation.navigateAndReplace(AppGraph.AuthGraph.Auth)
+            else -> {}
+        }
     }
 
     SplashScreenContent()
@@ -62,15 +66,24 @@ fun SplashScreenContent() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = rememberVectorPainter(image = ImageVector.vectorResource(id = R.drawable.shelfybooks_logo)),
+                painter =
+                rememberVectorPainter(
+                    image = ImageVector.vectorResource(id = R.drawable.shelfybooks_logo)),
                 contentDescription = stringResource(R.string.logo),
                 modifier = Modifier.size(128.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "ShelfiBooks",
+                text = stringResource(R.string.app_name),
                 fontSize = 48.sp,
                 fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(4.dp),
+                color = MaterialTheme.colorScheme.primary
             )
         }
 
