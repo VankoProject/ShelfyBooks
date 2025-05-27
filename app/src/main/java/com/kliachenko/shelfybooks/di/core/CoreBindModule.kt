@@ -6,9 +6,11 @@ import com.kliachenko.data.core.ProvideResources
 import com.kliachenko.presentation.auth.HandleInternetConnection
 import com.kliachenko.presentation.books.BookStoreLinkHandler
 import com.kliachenko.presentation.core.FormatedDate
+import com.kliachenko.presentation.core.HandleWebViewException
 import com.kliachenko.shelfybooks.core.HandleInternetConnectionImpl
 import com.kliachenko.shelfybooks.core.ProvideExceptionMessageImpl
 import com.kliachenko.shelfybooks.core.ProvideResourcesImpl
+import com.kliachenko.shelfybooks.core.ProvideWebViewExceptionMessageImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -48,6 +50,12 @@ abstract class CoreBindModule {
     abstract fun bindHandleInternetConnection(
         impl: HandleInternetConnectionImpl
     ): HandleInternetConnection
+
+    @Binds
+    @Singleton
+    abstract fun bindWebViewExceptionMessage(
+        impl: ProvideWebViewExceptionMessageImpl
+    ): HandleWebViewException
 
     @Binds
     @Singleton

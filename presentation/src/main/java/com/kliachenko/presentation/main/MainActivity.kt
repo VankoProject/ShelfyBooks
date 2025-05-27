@@ -24,6 +24,7 @@ import com.kliachenko.presentation.navigation.AppNavGraph
 import com.kliachenko.presentation.navigation.rememberNavigationState
 import com.kliachenko.presentation.splash.SplashScreen
 import com.kliachenko.presentation.ui.theme.ShelfyBooksTheme
+import com.kliachenko.presentation.webView.SellerWebScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -65,7 +66,7 @@ fun NavApp(
         color = MaterialTheme.colorScheme.background
     ) {
         AppNavGraph(
-            modifier = modifier,
+            modifier = Modifier,
             navController = navController,
             startDestination = startDestination,
             splashScreenContent = { SplashScreen(navigationState) },
@@ -77,8 +78,12 @@ fun NavApp(
                     categoryId,
                     categoryName
                 )
+            },
+            sellerWebViewContent = { pageTitle, sellerLink ->
+                SellerWebScreen(
+                    navigationState, pageTitle, sellerLink
+                )
             })
     }
-
 
 }

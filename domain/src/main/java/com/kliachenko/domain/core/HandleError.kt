@@ -4,3 +4,4 @@ interface HandleError<T: Any> {
 
     fun handle(exception: Exception): T
 }
+

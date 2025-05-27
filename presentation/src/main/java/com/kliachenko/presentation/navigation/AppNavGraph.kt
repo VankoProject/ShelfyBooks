@@ -8,6 +8,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import com.kliachenko.presentation.navigation.NavGraphKeys.CATEGORY_ID
+import com.kliachenko.presentation.navigation.NavGraphKeys.CATEGORY_NAME
+import com.kliachenko.presentation.navigation.NavGraphKeys.PAGE_TITLE
+import com.kliachenko.presentation.navigation.NavGraphKeys.SELLER_LINK
 
 @Composable
 fun AppNavGraph(
@@ -17,7 +21,8 @@ fun AppNavGraph(
     splashScreenContent: @Composable () -> Unit,
     authScreenContent: @Composable () -> Unit,
     categoriesScreenContent: @Composable () -> Unit,
-    booksScreenContent: @Composable (String, String) -> Unit
+    booksScreenContent: @Composable (String, String) -> Unit,
+    sellerWebViewContent: @Composable (String, String) -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -43,15 +48,35 @@ fun AppNavGraph(
                 route = AppGraph.MainGraph.BooksGraph.Books(categoryId = "", categoryName = "")
                     .pattern(),
                 arguments = listOf(
-                    navArgument("categoryId") { type = NavType.StringType },
-                    navArgument("categoryName") { type = NavType.StringType }
+                    navArgument(CATEGORY_ID) { type = NavType.StringType },
+                    navArgument(CATEGORY_NAME) { type = NavType.StringType }
                 )
             ) { backStackEntry ->
-                val categoryId = backStackEntry.arguments?.getString("categoryId") ?: ""
-                val categoryName = backStackEntry.arguments?.getString("categoryName") ?: ""
+                val categoryId = backStackEntry.arguments?.getString(CATEGORY_ID) ?: ""
+                val categoryName = backStackEntry.arguments?.getString(CATEGORY_NAME) ?: ""
                 booksScreenContent(categoryId, categoryName)
+            }
+
+            composable(
+                route = AppGraph.MainGraph.WebViewGraph.Seller(pageTitle = "", sellerLink = "")
+                    .pattern(),
+                arguments = listOf(
+                    navArgument(PAGE_TITLE) { type = NavType.StringType },
+                    navArgument(SELLER_LINK) { type = NavType.StringType }
+                )
+            ) { navBackStackEntry ->
+                val pageTitle = navBackStackEntry.arguments?.getString(PAGE_TITLE) ?: ""
+                val sellerLink = navBackStackEntry.arguments?.getString(SELLER_LINK) ?: ""
+                sellerWebViewContent(pageTitle, sellerLink)
             }
         }
     }
 
+}
+
+internal object NavGraphKeys {
+    const val CATEGORY_ID = "categoryId"
+    const val CATEGORY_NAME = "categoryName"
+    const val PAGE_TITLE = "pageTitle"
+    const val SELLER_LINK = "sellerLink"
 }

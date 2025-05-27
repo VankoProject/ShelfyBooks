@@ -8,13 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kliachenko.presentation.R
+import com.kliachenko.presentation.books.SellersButtonUiState
 import com.kliachenko.presentation.books.model.SellerUi
 
 @Composable
 fun SellersDialog(
     sellers: List<SellerUi>,
     onDismiss: () -> Unit,
-    onSellerClick: (SellerUi) -> Unit
+    onSellerClick: (String, String) -> Unit
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -27,8 +28,9 @@ fun SellersDialog(
         text = {
             Column {
                 sellers.forEach { seller ->
-                    seller.Show {
-                        onSellerClick.invoke(seller)
+                    seller.Show { name, url ->
+                        onSellerClick(name, url)
+                        onDismiss()
                     }
                 }
             }
@@ -55,7 +57,7 @@ fun PreviewSellersDialog() {
             )
         ),
         onDismiss = {},
-        onSellerClick = {}
+        onSellerClick = { _, _ -> }
     )
 
 }

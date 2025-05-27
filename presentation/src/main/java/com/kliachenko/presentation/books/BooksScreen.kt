@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kliachenko.presentation.R
+import com.kliachenko.presentation.navigation.AppGraph
 import com.kliachenko.presentation.navigation.NavigationState
 
 @Composable
@@ -35,7 +36,16 @@ fun BooksScreen(
         categoryName = displayCategoryName,
         navigate = { navigation.popBackStack() },
         onRetry = { viewModel.load(categoryId, categoryName) },
-        onSellersClick = { sellers -> viewModel.sellers(sellers = sellers) },
+        onSellersClick = { sellers ->
+            viewModel.sellers(sellers = sellers) { name, url ->
+                navigation.navigate(
+                    AppGraph.MainGraph.WebViewGraph.Seller(
+                        pageTitle = name,
+                        sellerLink = url
+                    )
+                )
+            }
+        },
         onDialogDismiss = { viewModel.dismissDialog() })
 
 }

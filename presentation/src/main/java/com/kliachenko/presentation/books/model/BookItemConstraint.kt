@@ -58,7 +58,7 @@ fun BookItemConstraint(
 
             imageContent(
                 Modifier
-                    .size(60.dp)
+                    .size(60.dp).padding(4.dp)
                     .clip(RoundedCornerShape(4.dp))
                     .constrainAs(imageRef) {
                         start.linkTo(parent.start)
@@ -103,7 +103,7 @@ fun BookItemConstraint(
                     end.linkTo(
                         buttonRef.start,
                         margin = 4.dp
-                    ) // ограничение справа, чтобы не налазил
+                    )
                     bottom.linkTo(publisherRef.top, margin = 4.dp)
                     width = Dimension.fillToConstraints
                 }

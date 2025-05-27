@@ -1,6 +1,7 @@
 package com.kliachenko.presentation.uiComponents.dialog
 
 import androidx.compose.runtime.Composable
+import com.kliachenko.presentation.books.SellersButtonUiState
 import com.kliachenko.presentation.books.model.SellerUi
 
 @Composable
@@ -23,7 +24,7 @@ interface DialogUiState {
     fun Show(
         onDismiss: () -> Unit,
         onRetryButtonClick: () -> Unit,
-        onCancelButtonClick: () -> Unit
+        onCancelButtonClick: () -> Unit,
     ) = Unit
 
     data object None : DialogUiState
@@ -47,21 +48,9 @@ interface DialogUiState {
         }
     }
 
-    data class Success(private val successMessage: String) : DialogUiState {
-
-        @Composable
-        override fun Show(
-            onDismiss: () -> Unit,
-            onRetryButtonClick: () -> Unit,
-            onCancelButtonClick: () -> Unit
-        ) {
-            SuccessDialog(message = successMessage, onDismiss)
-        }
-    }
-
     data class Sellers(
         private val sellers: List<SellerUi>,
-        private val onSellerClick: (SellerUi) -> Unit
+        private val onSellerClick: (String, String) -> Unit
     ) : DialogUiState {
 
         @Composable
