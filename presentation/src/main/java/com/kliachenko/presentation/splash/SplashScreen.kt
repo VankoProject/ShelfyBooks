@@ -75,14 +75,14 @@ fun SplashScreenContent() {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = stringResource(R.string.app_name),
-                fontSize = 48.sp,
+                fontSize = 40.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Spacer(modifier = Modifier.height(16.dp))
             LinearProgressIndicator(
                 modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .height(4.dp),
+                    .fillMaxWidth(0.3f)
+                    .height(2.dp),
                 color = MaterialTheme.colorScheme.primary
             )
         }

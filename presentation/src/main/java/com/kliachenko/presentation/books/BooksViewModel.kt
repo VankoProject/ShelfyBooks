@@ -15,7 +15,6 @@ import javax.inject.Inject
 class BooksViewModel @Inject constructor(
     private val booksByCategory: BooksByCategory,
     private val booksMapper: BookResultMapper,
-    private val bookStoreLinkHandler: BookStoreLinkHandler,
     runAsync: RunAsync,
 ) : BaseViewModel(runAsync) {
 
@@ -42,7 +41,7 @@ class BooksViewModel @Inject constructor(
         _buttonUiState.value = SellersButtonUiState.Progress
         _dialogState.value = DialogUiState.Sellers(
             sellers = sellers,
-            onSellerClick = { seller -> seller.buy(bookStoreLinkHandler) }
+            onSellerClick = { seller -> }
         )
         _buttonUiState.value = SellersButtonUiState.BuyAction
     }

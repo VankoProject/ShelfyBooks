@@ -29,7 +29,6 @@ fun BooksScreen(
         viewModel.load(categoryId, categoryName)
     }
 
-
     uiState.Show(
         buttonUiState = buttonState,
         dialogUiState = dialogState,

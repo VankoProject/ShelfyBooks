@@ -1,7 +1,7 @@
 package com.kliachenko.presentation.books.model
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,14 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,13 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kliachenko.presentation.R
-import com.kliachenko.presentation.books.SellerButton
 import com.kliachenko.presentation.books.SellersButtonUiState
 
 interface BookUi {
 
     @Composable
     fun Show(
+        modifier: Modifier,
         buttonUiState: SellersButtonUiState,
         onSellersClick: (List<SellerUi>) -> Unit,
         imageContent: @Composable (Modifier) -> Unit
@@ -51,81 +47,46 @@ interface BookUi {
         private val rank: Int,
         private val sellers: List<SellerUi>
     ) : BookUi {
-
         @Composable
         override fun Show(
+            modifier: Modifier,
             buttonUiState: SellersButtonUiState,
             onSellersClick: (List<SellerUi>) -> Unit,
             imageContent: @Composable (Modifier) -> Unit
         ) {
+
+            val safeDescription = description.takeIf { it.isNotBlank() }
+                ?: stringResource(id = R.string.no_description_available)
+
             Row(
                 modifier = Modifier.padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
-                BookRateUiState.Base(rank).Show()
+                Box(
+                    modifier = Modifier
+                        .width(32.dp)
+                        .height(114.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    BookRateUiState.Base(rank).Show()
+                }
 
                 Spacer(modifier = Modifier.width(4.dp))
 
-                Card(
-                    modifier = Modifier.height(114.dp),
-                    shape = RoundedCornerShape(8.dp),
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(8.dp)
-                    ) {
+                BookItemConstraint(
+                    title = title,
+                    description = safeDescription,
+                    author = author,
+                    publisher = publisher,
+                    sellers = sellers,
+                    buttonUiState = buttonUiState,
+                    onSellersClick = onSellersClick,
+                    imageContent = imageContent
+                )
 
-                        imageContent(
-                            Modifier
-                                .width(34.dp)
-                                .height(52.dp)
-                                .clip(RoundedCornerShape(4.dp))
-                        )
-
-                        Spacer(modifier = Modifier.width(8.dp))
-
-                        Column(
-                            modifier = Modifier.wrapContentHeight(),
-                            verticalArrangement = Arrangement.SpaceAround
-                        ) {
-                            Text(
-                                modifier = Modifier.padding(bottom = 8.dp),
-                                text = title,
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-
-                            Text(
-                                modifier = Modifier.weight(1f),
-                                text = description,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 3,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Light
-                            )
-
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                            ) {
-                                Column {
-                                    BookAuthor(author)
-                                    Spacer(modifier = Modifier.height(4.dp))
-                                    BookPublisher(publisher)
-                                }
-                                SellerButton(
-                                    sellers = sellers,
-                                    state = buttonUiState,
-                                    onButtonClick = onSellersClick
-                                )
-                            }
-                        }
-                    }
-                }
             }
         }
+
 
         override fun getImageUrl() = imageUrl
 
@@ -134,38 +95,46 @@ interface BookUi {
 }
 
 @Composable
-fun BookAuthor(author: String) {
-    Row {
+fun BookAuthor(author: String, modifier: Modifier = Modifier) {
+    Row(modifier = modifier.padding(bottom = 0.dp)) {
         Text(
             text = stringResource(R.string.book_author),
             fontSize = 10.sp,
+            lineHeight = 10.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Normal
         )
         Text(
             text = author,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             fontSize = 10.sp,
+            lineHeight = 10.sp,
             fontWeight = FontWeight.Light
         )
     }
 }
 
 @Composable
-fun BookPublisher(publisher: String) {
-    Row {
+fun BookPublisher(publisher: String, modifier: Modifier = Modifier) {
+    Row(modifier = modifier.padding(bottom = 0.dp)) {
         Text(
             text = stringResource(R.string.book_publisher),
             fontSize = 10.sp,
+            lineHeight = 10.sp,
             fontWeight = FontWeight.Normal
         )
         Text(
             text = publisher,
             fontSize = 10.sp,
+            lineHeight = 10.sp,
             fontWeight = FontWeight.Light
         )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 34)
 @Composable
 fun BookUiPreview() {
     val fakeList = listOf(
@@ -201,15 +170,13 @@ fun BookUiPreview() {
     Column {
         fakeList.forEach {
             it.Show(
+                modifier = Modifier.fillMaxWidth(),
                 buttonUiState = SellersButtonUiState.BuyAction,
                 onSellersClick = {}) { modifier ->
                 Image(
                     painter = painterResource(R.drawable.book_image_placeholder),
                     contentDescription = null,
-                    modifier = modifier
-                        .width(60.dp)
-                        .height(80.dp)
-                        .clip(RoundedCornerShape(4.dp)),
+                    modifier = modifier,
                     contentScale = ContentScale.Crop
                 )
             }

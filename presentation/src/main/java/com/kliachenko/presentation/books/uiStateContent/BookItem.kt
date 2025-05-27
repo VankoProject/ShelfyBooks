@@ -1,7 +1,9 @@
 package com.kliachenko.presentation.books.uiStateContent
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -16,6 +18,7 @@ import com.kliachenko.presentation.books.model.SellerUi
 
 @Composable
 fun BookItem(
+    modifier: Modifier,
     book: BookUi,
     buttonUiState: SellersButtonUiState,
     onSellersClick: (List<SellerUi>) -> Unit
@@ -32,13 +35,14 @@ fun BookItem(
     }
 
     book.Show(
+        modifier = modifier,
         buttonUiState = buttonUiState,
         onSellersClick = onSellersClick,
-        imageContent = { modifier ->
+        imageContent = {imageModifier->
             AsyncImage(
+                modifier = imageModifier,
                 model = imageRequest,
                 contentDescription = stringResource(R.string.book_image),
-                modifier = modifier,
                 contentScale = ContentScale.Fit,
                 placeholder = painterResource(R.drawable.book_image_placeholder),
                 error = painterResource(R.drawable.book_image_placeholder)
@@ -47,7 +51,7 @@ fun BookItem(
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 34)
 @Composable
 fun PreviewBookItemInitial() {
     BookItem(
@@ -60,25 +64,8 @@ fun PreviewBookItemInitial() {
             rank = 1,
             sellers = listOf(SellerUi.Base("Amazon", ""), SellerUi.Base("Apple", ""))
         ),
-        buttonUiState = SellersButtonUiState.BuyAction
-    ) {}
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewBookItemProgress() {
-    BookItem(
-        book = BookUi.Base(
-            title = "Preview Title",
-            description = "A young man becomes the caretaker.",
-            author = "Author Name",
-            publisher = "Publisher Name",
-            imageUrl = "",
-            rank = 1,
-            sellers = listOf(SellerUi.Base("Amazon", ""), SellerUi.Base("Apple", ""))
-        ),
-        buttonUiState = SellersButtonUiState.Progress
+        buttonUiState = SellersButtonUiState.BuyAction,
+        modifier = Modifier.fillMaxWidth()
     ) {}
 
 }

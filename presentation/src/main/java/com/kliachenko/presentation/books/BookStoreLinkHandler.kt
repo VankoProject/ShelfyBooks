@@ -1,27 +1,35 @@
 package com.kliachenko.presentation.books
 
-import android.content.Context
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 interface BookStoreLinkHandler {
 
-    fun open(url: String)
+    fun open(activity: Activity, url: String)
 
-    class Base @Inject constructor(
-        @ApplicationContext private val context: Context
-    ) : BookStoreLinkHandler {
+    class Base @Inject constructor() : BookStoreLinkHandler {
 
-        override fun open(url: String) {
-            val tabBuilder = CustomTabsIntent.Builder()
-                .setToolbarCornerRadiusDp(8)
-                .addDefaultShareMenuItem()
+        override fun open(activity: Activity, url: String) {
+            val uri = Uri.parse(url)
+
+            val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
+                .addDefaultShareMenuItem()
+                .setToolbarCornerRadiusDp(8)
+                .build()
 
-            val customTabsIntent = tabBuilder.build()
-            customTabsIntent.launchUrl(context, Uri.parse(url))
+            customTabsIntent.intent.setPackage("com.android.chrome")
+
+            try {
+                customTabsIntent.launchUrl(activity, uri)
+            } catch (e: ActivityNotFoundException) {
+                val fallbackIntent = Intent(Intent.ACTION_VIEW, uri)
+                activity.startActivity(fallbackIntent)
+            }
         }
     }
 

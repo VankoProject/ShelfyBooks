@@ -1,5 +1,6 @@
 package com.kliachenko.presentation.splash
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kliachenko.domain.repository.AuthRepository
@@ -21,9 +22,11 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             delay(2000)
+            val isLogged = repository.isLoggedIn()
+            Log.d("dxt90", "isLoggedIn = $isLogged")
             _appEntryScreenState.value = if (repository.isLoggedIn())
                 AuthState.Authorized
-             else
+            else
                 AuthState.Unauthorized
         }
     }
