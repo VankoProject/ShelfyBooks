@@ -4,6 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -33,7 +40,7 @@ class MainActivity : ComponentActivity() {
             ShelfyBooksTheme {
                 NavApp(
                     modifier = Modifier,
-                    googleIdToken = provideIdToken
+                    googleIdToken = provideIdToken,
                 )
             }
         }
@@ -51,19 +58,27 @@ fun NavApp(
     val navigationState = rememberNavigationState(navController)
     val startDestination = AppGraph.SplashGraph.Splash.route()
 
-    AppNavGraph(
-        modifier = modifier,
-        navController = navController,
-        startDestination = startDestination,
-        splashScreenContent = { SplashScreen(navigationState) },
-        authScreenContent = { AuthScreen(googleIdToken, navigationState) },
-        categoriesScreenContent = { CategoriesScreen(navigationState) },
-        booksScreenContent = { categoryId, categoryName ->
-            BooksScreen(
-                navigationState,
-                categoryId,
-                categoryName
-            )
-        })
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        AppNavGraph(
+            modifier = modifier,
+            navController = navController,
+            startDestination = startDestination,
+            splashScreenContent = { SplashScreen(navigationState) },
+            authScreenContent = { AuthScreen(googleIdToken, navigationState) },
+            categoriesScreenContent = { CategoriesScreen(navigationState) },
+            booksScreenContent = { categoryId, categoryName ->
+                BooksScreen(
+                    navigationState,
+                    categoryId,
+                    categoryName
+                )
+            })
+    }
+
 
 }

@@ -29,6 +29,7 @@ fun CategoryProgressStateContent() {
         Text(
             text = stringResource(R.string.loading_categories_message),
             fontSize = 18.sp,
+            lineHeight = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center,
         )

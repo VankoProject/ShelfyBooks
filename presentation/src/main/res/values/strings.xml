@@ -9,7 +9,7 @@
     <string name="categories_screen_title">New York Times BestSellers</string>
     <string name="loading_categories_message">Loading\nbestseller book categories…</string>
     <string name="loading_books_message">Loading\n%1$s Category…</string>
-    <string name="updated_period">Updated: %1$s</string>
+    <string name="updated_period">Updated:\n%1$s</string>
     <string name="books_count">%1$s books</string>
     <string name="published_date">Published %1$s</string>
     <string name="choose_a_category">Choose a Category</string>

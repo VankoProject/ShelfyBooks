@@ -4,6 +4,8 @@ import android.content.Context
 import com.kliachenko.data.core.ProvideExceptionMessage
 import com.kliachenko.data.core.ProvideResources
 import com.kliachenko.presentation.auth.HandleInternetConnection
+import com.kliachenko.presentation.books.BookStoreLinkHandler
+import com.kliachenko.presentation.core.FormatedDate
 import com.kliachenko.shelfybooks.core.HandleInternetConnectionImpl
 import com.kliachenko.shelfybooks.core.ProvideExceptionMessageImpl
 import com.kliachenko.shelfybooks.core.ProvideResourcesImpl
@@ -47,11 +49,21 @@ abstract class CoreBindModule {
         impl: HandleInternetConnectionImpl
     ): HandleInternetConnection
 
+    @Binds
+    @Singleton
+    abstract fun bindFormatedDate(
+        impl: FormatedDate.Base
+    ): FormatedDate
+
+
     companion object {
 
         @Provides
         fun provideContext(@ApplicationContext context: Context): Context = context
 
+        @Provides
+        fun provideBookStoreLinkHandler(): BookStoreLinkHandler =
+            BookStoreLinkHandler.Base()
     }
 
 }
