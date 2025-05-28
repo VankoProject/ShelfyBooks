@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">ShelfyBooks</string>
+    <string name="user_not_found">User not found</string>
+
+    <!-- data module/Firebase Authentication Errors -->
+    <string name="error_invalid_credentials">The credentials provided are invalid.</string>
+    <string name="error_user_collision">This email is already associated with another account.</string>
+    <string name="error_invalid_user">The user is no longer valid. Please sign in again.</string>
+    <string name="error_unexpected_firebase">An unexpected Firebase authentication error occurred.</string>
+
+    <!-- data module/Credential Manager Errors -->
+    <string name="error_no_credentials">No credentials available. Please sign in.</string>
+    <string name="error_user_canceled">Sign-in was canceled. Please try again.</string>
+    <string name="error_interrupted">Sign-in was interrupted. Please try again.</string>
+    <string name="error_unknown">An unknown error occurred. Please try again.</string>
+    <string name="error_unexpected_credential">Unexpected error: %1$s</string>
+
+    <!-- data module/Network Errors -->
+    <string name="error_no_internet">No internet connection. Please check your network.</string>
+    <string name="error_service_unavailable">Service is currently unavailable. Please try again later.</string>
+
+    <!-- presentation module/WebView Error -->
+    <string name="error_timeout">Timeout error. Please check your internet connection and try again.</string>
+    <string name="error_no_connection">No internet connection. Please connect to the internet and try again.</string>
+    <string name="error_host_lookup">Cannot find server. Please check the URL or your connection.</string>
+    <string name="error_unsupported_auth">Unsupported authentication scheme.</string>
+    <string name="error_authentication">Authentication failed. Please check your credentials.</string>
+    <string name="error_proxy_authentication">Proxy authentication required.</string>
+    <string name="error_too_many_requests">Too many requests. Please try again later.</string>
+    <string name="unknown_webview_error">An unknown error occurred. Please try again.</string>
+
 </resources>
