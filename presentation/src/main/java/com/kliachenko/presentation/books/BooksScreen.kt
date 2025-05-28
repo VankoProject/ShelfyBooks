@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kliachenko.presentation.R
+import com.kliachenko.presentation.navigation.AppGraph
 import com.kliachenko.presentation.navigation.NavigationState
 
 @Composable
@@ -16,9 +17,7 @@ fun BooksScreen(
     categoryName: String
 ) {
 
-    val displayCategoryName = categoryName.ifBlank {
-        stringResource(R.string.bestseller_category)
-    }
+    val displayCategoryName = categoryName.ifBlank { stringResource(R.string.bestseller_category) }
 
     val viewModel: BooksViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
@@ -29,14 +28,26 @@ fun BooksScreen(
         viewModel.load(categoryId, categoryName)
     }
 
+    val navigateBackToCategories = {
+        navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
+    }
 
     uiState.Show(
         buttonUiState = buttonState,
         dialogUiState = dialogState,
         categoryName = displayCategoryName,
-        navigate = { navigation.popBackStack() },
+        navigate = navigateBackToCategories,
         onRetry = { viewModel.load(categoryId, categoryName) },
-        onSellersClick = { sellers -> viewModel.sellers(sellers = sellers) },
+        onSellersClick = { sellers ->
+            viewModel.sellers(sellers = sellers) { name, url ->
+                navigation.navigate(
+                    AppGraph.MainGraph.WebViewGraph.Seller(
+                        pageTitle = name,
+                        sellerLink = url
+                    )
+                )
+            }
+        },
         onDialogDismiss = { viewModel.dismissDialog() })
 
 }

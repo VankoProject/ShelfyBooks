@@ -6,6 +6,7 @@ import com.kliachenko.data.mapper.CategoryMapper
 import com.kliachenko.data.mapper.SellerMapper
 
 interface MapCategory {
+
     fun <T:Any> map(mapper: CategoryMapper<T>): T
 
 }

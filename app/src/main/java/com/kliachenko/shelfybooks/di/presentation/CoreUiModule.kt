@@ -1,6 +1,5 @@
 package com.kliachenko.shelfybooks.di.presentation
 
-import com.kliachenko.presentation.books.BookStoreLinkHandler
 import com.kliachenko.presentation.core.RunAsync
 import dagger.Binds
 import dagger.Module
@@ -15,10 +14,5 @@ abstract class UiModule {
     abstract fun bindRunAsync(
         impl: RunAsync.Base
     ): RunAsync
-
-    @Binds
-    abstract fun bindBookStoreLinkHandler(
-        impl: BookStoreLinkHandler.Base
-    ): BookStoreLinkHandler
 
 }

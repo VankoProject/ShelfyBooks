@@ -3,6 +3,7 @@ package com.kliachenko.presentation.books.model.mapper
 import com.kliachenko.domain.model.BookMapper
 import com.kliachenko.domain.model.SellerDomain
 import com.kliachenko.domain.model.SellerMapper
+import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.model.BookUi
 import com.kliachenko.presentation.books.model.SellerUi
 import javax.inject.Inject

@@ -33,6 +33,7 @@ interface ProvideExceptionMessage {
         fun noInternetConnection(): String
 
         fun serviceUnavailable(): String
+
     }
 
 }

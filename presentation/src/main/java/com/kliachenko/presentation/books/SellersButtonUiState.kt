@@ -19,11 +19,13 @@ import com.kliachenko.presentation.books.model.SellerUi
 
 @Composable
 fun SellerButton(
+    modifier: Modifier,
     sellers: List<SellerUi>,
     state: SellersButtonUiState,
     onButtonClick: (List<SellerUi>) -> Unit
 ) {
     state.Show(
+        modifier = modifier,
         sellers = sellers,
         onButtonClick = onButtonClick,
     )
@@ -33,6 +35,7 @@ interface SellersButtonUiState {
 
     @Composable
     fun Show(
+        modifier: Modifier,
         sellers: List<SellerUi>,
         onButtonClick: (List<SellerUi>) -> Unit
     )
@@ -43,11 +46,12 @@ interface SellersButtonUiState {
 
         @Composable
         override fun Show(
+            modifier: Modifier,
             sellers: List<SellerUi>,
             onButtonClick: (List<SellerUi>) -> Unit
         ) {
             Button(
-                modifier = Modifier.height(20.dp),
+                modifier = modifier,
                 contentPadding = PaddingValues(0.dp),
                 onClick = { onButtonClick.invoke(sellers) },
                 content = content

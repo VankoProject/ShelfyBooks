@@ -1,16 +1,14 @@
 package com.kliachenko.presentation.books.model
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import com.kliachenko.presentation.books.BookStoreLinkHandler
 
 interface SellerUi {
 
     @Composable
-    fun Show(onSellerClick: () -> Unit)
-
-    fun buy(opener: BookStoreLinkHandler)
+    fun Show(onSellerClick: (String, String) -> Unit)
 
     data class Base(
         private val name: String,
@@ -18,16 +16,13 @@ interface SellerUi {
     ) : SellerUi {
 
         @Composable
-        override fun Show(onSellerClick: () -> Unit) {
-            TextButton(onClick = onSellerClick) {
-                Text(text = name)
+        override fun Show(onSellerClick: (String, String) -> Unit) {
+            TextButton(onClick = { onSellerClick(name, url) }) {
+                Text(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    text = name)
             }
         }
-
-        override fun buy(opener: BookStoreLinkHandler) {
-            opener.open(url)
-        }
-
     }
 
 }

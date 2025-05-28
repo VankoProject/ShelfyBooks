@@ -11,12 +11,16 @@ class ApiKeyInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val origin = chain.request()
         val url = origin.url.newBuilder()
-            .addQueryParameter("api-key", apiKey)
+            .addQueryParameter(API_KEY_QUERY_PARAM, apiKey)
             .build()
         val newRequest = origin.newBuilder()
             .url(url)
             .build()
         return chain.proceed(newRequest)
+    }
+
+    companion object {
+        private const val API_KEY_QUERY_PARAM = "api-key"
     }
 
 }

@@ -1,11 +1,16 @@
 package com.kliachenko.presentation.books.uiStateContent
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import coil3.compose.AsyncImage
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.books.SellersButtonUiState
 import com.kliachenko.presentation.books.model.BookUi
@@ -13,18 +18,31 @@ import com.kliachenko.presentation.books.model.SellerUi
 
 @Composable
 fun BookItem(
+    modifier: Modifier,
     book: BookUi,
     buttonUiState: SellersButtonUiState,
     onSellersClick: (List<SellerUi>) -> Unit
 ) {
+
+    val context = LocalContext.current
+
+    val imageRequest = remember(key1 = book.getImageUrl()) {
+        ImageRequest.Builder(context)
+            .data(book.getImageUrl())
+            .addHeader("User-Agent", "ShelfyBooks-Client")
+            .crossfade(true)
+            .build()
+    }
+
     book.Show(
+        modifier = modifier,
         buttonUiState = buttonUiState,
         onSellersClick = onSellersClick,
-        imageContent = { modifier ->
+        imageContent = {imageModifier->
             AsyncImage(
-                model = book.getImageUrl(),
+                modifier = imageModifier,
+                model = imageRequest,
                 contentDescription = stringResource(R.string.book_image),
-                modifier = modifier,
                 contentScale = ContentScale.Fit,
                 placeholder = painterResource(R.drawable.book_image_placeholder),
                 error = painterResource(R.drawable.book_image_placeholder)
@@ -33,7 +51,7 @@ fun BookItem(
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 34)
 @Composable
 fun PreviewBookItemInitial() {
     BookItem(
@@ -46,25 +64,8 @@ fun PreviewBookItemInitial() {
             rank = 1,
             sellers = listOf(SellerUi.Base("Amazon", ""), SellerUi.Base("Apple", ""))
         ),
-        buttonUiState = SellersButtonUiState.BuyAction
-    ) {}
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewBookItemProgress() {
-    BookItem(
-        book = BookUi.Base(
-            title = "Preview Title",
-            description = "A young man becomes the caretaker.",
-            author = "Author Name",
-            publisher = "Publisher Name",
-            imageUrl = "",
-            rank = 1,
-            sellers = listOf(SellerUi.Base("Amazon", ""), SellerUi.Base("Apple", ""))
-        ),
-        buttonUiState = SellersButtonUiState.Progress
+        buttonUiState = SellersButtonUiState.BuyAction,
+        modifier = Modifier.fillMaxWidth()
     ) {}
 
 }

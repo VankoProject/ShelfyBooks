@@ -1,11 +1,9 @@
 package com.kliachenko.presentation.categories.models
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,7 +24,7 @@ import com.kliachenko.presentation.R
 interface CategoryUi {
 
     @Composable
-    fun Show(onItemClick: (String, String) -> Unit) = Unit
+    fun Show(modifier: Modifier, onItemClick: (String, String) -> Unit) = Unit
 
     data class Base(
         private val id: String,
@@ -36,7 +34,7 @@ interface CategoryUi {
     ) : CategoryUi {
 
         @Composable
-        override fun Show(onItemClick: (String, String) -> Unit) {
+        override fun Show(modifier: Modifier, onItemClick: (String, String) -> Unit) {
             CategoryUiContent(name = name, booksCount = booksCount, updatePeriod = updatePeriod) {
                 onItemClick.invoke(id, name)
             }
@@ -47,43 +45,50 @@ interface CategoryUi {
 
 @Composable
 fun CategoryUiContent(
+    modifier: Modifier = Modifier,
     name: String,
     booksCount: Int,
     updatePeriod: String,
     onItemClick: () -> Unit
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 8.dp)
-            .clickable { onItemClick.invoke() }
+        modifier = modifier
+            .clickable { onItemClick.invoke() } .padding(horizontal = 4.dp)
     ) {
         Column {
             Text(
-                modifier = Modifier.padding(bottom = 8.dp),
+                modifier = Modifier.padding(bottom = 16.dp),
                 fontSize = 18.sp,
-                fontWeight = FontWeight.ExtraBold,
+                lineHeight = 18.sp,
+                fontWeight = FontWeight.Bold,
                 text = name
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 8.dp),
-                horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(R.string.books_count, booksCount),
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.width(240.dp)
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(1f)
                 )
-                Spacer(modifier = Modifier.width(16.dp))
-                Text(
-                    text = stringResource(R.string.updated_period, updatePeriod),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold,
-                )
+                Box(
+                    modifier = Modifier
+                        .width(100.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = stringResource(R.string.updated_period, updatePeriod),
+                        fontSize = 12.sp,
+                        lineHeight = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
             HorizontalDivider(
                 thickness = 1.dp,
@@ -95,8 +100,27 @@ fun CategoryUiContent(
 
 @Preview(showBackground = true, apiLevel = 34)
 @Composable
-fun PreviewCategoryUiContent() {
-    CategoryUiContent(name = "Hardcover Fiction", booksCount = 16, updatePeriod = "Weekly") {
+fun CategoryItemPreview_NoFillMaxWidth() {
+    CategoryUiContent(
+        name = "Fiction",
+        booksCount = 42,
+        updatePeriod = "weekly",
+        modifier = Modifier
+            .padding(8.dp),
+        onItemClick = {}
+    )
+}
 
-    }
+@Preview(name = "С fillMaxWidth()", showBackground = true)
+@Composable
+fun CategoryItemPreview_FillMaxWidth() {
+    CategoryUiContent(
+        name = "Fiction",
+        booksCount = 42,
+        updatePeriod = "weekly",
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        onItemClick = {}
+    )
 }

@@ -18,4 +18,5 @@ interface SellerMapper<T : Any> {
         name: String,
         url: String
     ): T
+
 }

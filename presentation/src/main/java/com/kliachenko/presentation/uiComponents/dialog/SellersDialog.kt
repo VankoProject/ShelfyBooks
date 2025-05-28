@@ -2,6 +2,7 @@ package com.kliachenko.presentation.uiComponents.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -14,9 +15,10 @@ import com.kliachenko.presentation.books.model.SellerUi
 fun SellersDialog(
     sellers: List<SellerUi>,
     onDismiss: () -> Unit,
-    onSellerClick: (SellerUi) -> Unit
+    onSellerClick: (String, String) -> Unit
 ) {
     AlertDialog(
+        containerColor = MaterialTheme.colorScheme.background,
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = onDismiss) {
@@ -27,8 +29,9 @@ fun SellersDialog(
         text = {
             Column {
                 sellers.forEach { seller ->
-                    seller.Show {
-                        onSellerClick.invoke(seller)
+                    seller.Show { name, url ->
+                        onSellerClick(name, url)
+                        onDismiss()
                     }
                 }
             }
@@ -55,7 +58,7 @@ fun PreviewSellersDialog() {
             )
         ),
         onDismiss = {},
-        onSellerClick = {}
+        onSellerClick = { _, _ -> }
     )
 
 }

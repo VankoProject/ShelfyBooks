@@ -50,6 +50,16 @@ interface AppGraph {
                 override fun route() = Routes.booksRoute(categoryId, categoryName)
             }
         }
+
+        @Serializable
+        sealed class WebViewGraph : MainGraph() {
+            data class Seller(val pageTitle: String, val sellerLink: String) : WebViewGraph() {
+
+                override fun route() = Routes.sellerRoute(pageTitle, sellerLink)
+
+                override fun pattern(): String = Routes.SELLER_PATTERN
+            }
+        }
     }
 }
 
@@ -62,7 +72,11 @@ private object Routes {
 
     const val BOOK_PATTERN = "books/{categoryId}/{categoryName}"
     fun booksRoute(categoryId: String, categoryName: String) =
-        "books/$categoryId/${Uri.encode(categoryName)}categoryName"
+        "books/$categoryId/${Uri.encode(categoryName)}"
+
+    const val SELLER_PATTERN = "seller/{pageTitle}/{sellerLink}"
+    fun sellerRoute(pageTitle: String, sellerLink: String) =
+        "seller/${Uri.encode(pageTitle)}/${Uri.encode(sellerLink)}"
 
 }
 

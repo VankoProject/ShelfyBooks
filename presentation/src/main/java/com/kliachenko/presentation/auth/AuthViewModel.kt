@@ -1,5 +1,6 @@
 package com.kliachenko.presentation.auth
 
+import android.util.Log
 import com.kliachenko.domain.core.HandleError
 import com.kliachenko.domain.repository.AuthResult
 import com.kliachenko.domain.usecase.SignInWithGoogle
@@ -22,7 +23,7 @@ class AuthViewModel @Inject constructor(
     private val _authUiState = MutableStateFlow<AuthUiState>(AuthUiState.Initial)
     val authUiState: StateFlow<AuthUiState> = _authUiState
 
-    private var _dialogUiState = MutableStateFlow<DialogUiState>(DialogUiState.None)
+    private val _dialogUiState = MutableStateFlow<DialogUiState>(DialogUiState.None)
     val dialogUiState: StateFlow<DialogUiState> = _dialogUiState
 
     fun signInWithGoogle(idToken: String, navigate: () -> Unit) {
@@ -32,12 +33,10 @@ class AuthViewModel @Inject constructor(
         }) { authResult ->
             val message = authResult.map(resultMapper)
             when (authResult) {
-                is AuthResult.Success -> {
-                    _dialogUiState.value = DialogUiState.Success(message)
-                    navigate()
-                }
+                is AuthResult.Success -> { navigate() }
 
                 is AuthResult.Error -> {
+                    _authUiState.value = AuthUiState.Initial
                     _dialogUiState.value = DialogUiState.Error(message)
                 }
             }
@@ -53,6 +52,5 @@ class AuthViewModel @Inject constructor(
     fun dismissDialog() {
         _dialogUiState.value = DialogUiState.None
     }
-
 
 }

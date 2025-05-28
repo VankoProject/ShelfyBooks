@@ -1,11 +1,11 @@
 package com.kliachenko.presentation.categories.uiStateContent
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
@@ -30,15 +30,14 @@ fun CategorySuccessStateContent(
     onItemClick: (String, String) -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.published_date, publishedDate),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium,
+            lineHeight = 12.sp,
             fontSize = 12.sp
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -47,19 +46,25 @@ fun CategorySuccessStateContent(
             text = stringResource(R.string.choose_a_category),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium,
+            lineHeight = 18.sp,
             fontSize = 18.sp
         )
         Spacer(modifier = Modifier.height(20.dp))
-        LazyColumn {
-            items(categories) {
-                it.Show { id, categoryName -> onItemClick(id, categoryName) }
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(categories) { categoryItem ->
+                categoryItem.Show(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) { id, categoryName -> onItemClick(id, categoryName) }
             }
         }
     }
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 34)
 @Composable
 fun PreviewSuccessStateContent() {
     val fakeCategories: List<CategoryUi> = listOf(

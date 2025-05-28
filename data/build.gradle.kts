@@ -55,7 +55,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-
     implementation(libs.kotlinx.coroutines.core)
 
     //Hilt, KSP
@@ -77,4 +76,5 @@ dependencies {
     api(libs.room.runtime)
     api(libs.room.ktx)
     ksp(libs.room.compiler)
+
 }

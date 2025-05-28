@@ -15,13 +15,16 @@ class SplashViewModel @Inject constructor(
     private val repository: AuthRepository,
 ) : ViewModel() {
 
-    private val _isAuthorized = MutableStateFlow(false)
-    val isAuthorized: StateFlow<Boolean> = _isAuthorized
+    private val _appEntryScreenState = MutableStateFlow<AuthState>(AuthState.Initial)
+    val appEntryScreenState: StateFlow<AuthState> = _appEntryScreenState
 
     init {
         viewModelScope.launch {
-            delay(1500)
-            _isAuthorized.value = repository.isLoggedIn()
+            delay(2000)
+            _appEntryScreenState.value = if (repository.isLoggedIn())
+                AuthState.Authorized
+            else
+                AuthState.Unauthorized
         }
     }
 

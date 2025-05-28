@@ -19,6 +19,7 @@ class MetaInfoCacheDataSource {
     class Base @Inject constructor(
         private val dao: MetaInfoDao
     ) : Mutable {
+
         override suspend fun save(date: String) {
             dao.insert(MetaInfoCache(PUBLISHED_DATE, date))
         }

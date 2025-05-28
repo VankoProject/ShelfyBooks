@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -35,11 +36,16 @@ fun ErrorDialog(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(imageVector = Icons.Default.Warning, contentDescription = null)
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error,
+                )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = errorMessage,
                     fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )

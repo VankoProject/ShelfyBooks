@@ -60,19 +60,19 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Constraint Layout
+    implementation(libs.androidx.constraintlayout.compose)
+
     //Hilt, KSP
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     //Coil
-    implementation(libs.coil.compose)
+    implementation (libs.coil.compose)
 
     //Serialization
     implementation(libs.kotlinx.serialization.core)
-
-    //Custom Tabs
-    implementation (libs.androidx.browser)
 
     //Credentials
     api(libs.androidx.credentials)
