@@ -54,7 +54,7 @@ fun SellerWebStateContent(
                     containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onBackground
                 ),
-                modifier = Modifier.height(64.dp)
+                modifier = Modifier.height(56.dp)
             )
         },
     ) { paddingValues ->
