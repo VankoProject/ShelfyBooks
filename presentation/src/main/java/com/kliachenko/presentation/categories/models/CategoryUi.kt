@@ -53,14 +53,14 @@ fun CategoryUiContent(
 ) {
     Box(
         modifier = modifier
-            .clickable { onItemClick.invoke() }
+            .clickable { onItemClick.invoke() } .padding(horizontal = 4.dp)
     ) {
         Column {
             Text(
                 modifier = Modifier.padding(bottom = 16.dp),
                 fontSize = 18.sp,
                 lineHeight = 18.sp,
-                fontWeight = FontWeight.ExtraBold,
+                fontWeight = FontWeight.Bold,
                 text = name
             )
             Row(
@@ -73,7 +73,7 @@ fun CategoryUiContent(
                     text = stringResource(R.string.books_count, booksCount),
                     fontSize = 16.sp,
                     lineHeight = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f)
                 )
                 Box(
@@ -85,7 +85,7 @@ fun CategoryUiContent(
                         text = stringResource(R.string.updated_period, updatePeriod),
                         fontSize = 12.sp,
                         lineHeight = 12.sp,
-                        fontWeight = FontWeight.Medium,
+                        fontWeight = FontWeight.Normal,
                         textAlign = TextAlign.Center
                     )
                 }

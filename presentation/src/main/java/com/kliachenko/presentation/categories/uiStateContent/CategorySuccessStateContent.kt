@@ -65,7 +65,7 @@ fun CategorySuccessStateContent(
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, apiLevel = 34)
 @Composable
 fun PreviewSuccessStateContent() {
     val fakeCategories: List<CategoryUi> = listOf(
