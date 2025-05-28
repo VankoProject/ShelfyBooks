@@ -23,7 +23,6 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             delay(2000)
             val isLogged = repository.isLoggedIn()
-            Log.d("dxt90", "isLoggedIn = $isLogged")
             _appEntryScreenState.value = if (repository.isLoggedIn())
                 AuthState.Authorized
             else

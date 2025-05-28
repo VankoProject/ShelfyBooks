@@ -22,7 +22,6 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-
     override fun isLoggedIn(): Boolean = auth.isLoggedIn()
 
 }

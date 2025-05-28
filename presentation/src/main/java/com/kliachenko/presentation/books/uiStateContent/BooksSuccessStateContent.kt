@@ -35,7 +35,7 @@ fun BooksSuccessStateContent(
     Column(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
         Row(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(12.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

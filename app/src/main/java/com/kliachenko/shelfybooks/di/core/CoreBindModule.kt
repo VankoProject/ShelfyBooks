@@ -4,7 +4,6 @@ import android.content.Context
 import com.kliachenko.data.core.ProvideExceptionMessage
 import com.kliachenko.data.core.ProvideResources
 import com.kliachenko.presentation.auth.HandleInternetConnection
-import com.kliachenko.presentation.books.BookStoreLinkHandler
 import com.kliachenko.presentation.core.FormatedDate
 import com.kliachenko.presentation.core.HandleWebViewException
 import com.kliachenko.shelfybooks.core.HandleInternetConnectionImpl
@@ -69,9 +68,6 @@ abstract class CoreBindModule {
         @Provides
         fun provideContext(@ApplicationContext context: Context): Context = context
 
-        @Provides
-        fun provideBookStoreLinkHandler(): BookStoreLinkHandler =
-            BookStoreLinkHandler.Base()
     }
 
 }

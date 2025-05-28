@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -71,21 +72,15 @@ interface BookUiState {
                         title = {
                             Text(
                                 text = categoryName,
-                                overflow = TextOverflow.Ellipsis
+                                overflow = TextOverflow.Ellipsis,
+                                style = MaterialTheme.typography.titleLarge
                             )
                         },
                         navigationIcon = {
-                            Box(
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .size(48.dp)
-                                    .clickable { navigate.invoke() },
-                                contentAlignment = Alignment.Center
-                            ) {
+                            IconButton(onClick = navigate) {
                                 Icon(
                                     imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = stringResource(R.string.go_back),
-                                    modifier = Modifier.size(32.dp)
+                                    contentDescription = stringResource(R.string.go_back)
                                 )
                             }
                         },
@@ -93,7 +88,7 @@ interface BookUiState {
                             containerColor = MaterialTheme.colorScheme.background,
                             titleContentColor = MaterialTheme.colorScheme.onBackground
                         ),
-                        modifier = Modifier.height(64.dp)
+                        modifier = Modifier.height(56.dp),
                     )
                 }
             ) { paddingValues ->

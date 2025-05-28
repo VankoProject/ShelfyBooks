@@ -61,7 +61,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //Constraint Layout
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation(libs.androidx.constraintlayout.compose)
 
     //Hilt, KSP
     implementation(libs.hilt.android)
@@ -73,9 +73,6 @@ dependencies {
 
     //Serialization
     implementation(libs.kotlinx.serialization.core)
-
-    //Custom Tabs
-    implementation (libs.androidx.browser)
 
     //Credentials
     api(libs.androidx.credentials)

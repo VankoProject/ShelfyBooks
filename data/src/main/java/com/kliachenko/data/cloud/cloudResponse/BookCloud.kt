@@ -53,6 +53,7 @@ data class BookCloud(
     fun sellers(): List<SellerLinkCloud> = sellers
 
     fun bookId() = bookId
+
 }
 
 data class SellerLinkCloud(

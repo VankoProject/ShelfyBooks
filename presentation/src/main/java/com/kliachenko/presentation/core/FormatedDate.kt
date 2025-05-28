@@ -27,6 +27,6 @@ interface FormatedDate {
                 date
             }
         }
-
     }
+
 }

@@ -2,13 +2,13 @@ package com.kliachenko.presentation.uiComponents.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kliachenko.presentation.R
-import com.kliachenko.presentation.books.SellersButtonUiState
 import com.kliachenko.presentation.books.model.SellerUi
 
 @Composable
@@ -18,6 +18,7 @@ fun SellersDialog(
     onSellerClick: (String, String) -> Unit
 ) {
     AlertDialog(
+        containerColor = MaterialTheme.colorScheme.background,
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = onDismiss) {

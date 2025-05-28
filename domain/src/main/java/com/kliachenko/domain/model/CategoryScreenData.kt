@@ -18,4 +18,5 @@ interface ScreenDataMapper<T : Any> {
         publishedDate: String,
         categories: List<CategoryDomain>
     ): T
+
 }

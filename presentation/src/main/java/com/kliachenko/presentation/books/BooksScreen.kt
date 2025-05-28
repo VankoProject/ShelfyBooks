@@ -17,9 +17,7 @@ fun BooksScreen(
     categoryName: String
 ) {
 
-    val displayCategoryName = categoryName.ifBlank {
-        stringResource(R.string.bestseller_category)
-    }
+    val displayCategoryName = categoryName.ifBlank { stringResource(R.string.bestseller_category) }
 
     val viewModel: BooksViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()

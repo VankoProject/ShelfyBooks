@@ -7,12 +7,17 @@ import retrofit2.http.Path
 
 interface BooksApiService {
 
-    @GET("lists/overview.json")
+    @GET(ENDPOINT_OVERVIEW)
     suspend fun overview(): OverviewResponse
 
-    @GET("lists/current/{list}.json")
+    @GET(ENDPOINT_BOOKS_BY_CATEGORY)
     suspend fun booksByCategory(
         @Path("list") categoryId: String
     ): BookListResponse
+
+    companion object {
+        private const val ENDPOINT_OVERVIEW = "lists/overview.json"
+        private const val ENDPOINT_BOOKS_BY_CATEGORY = "lists/current/{list}.json"
+    }
 
 }

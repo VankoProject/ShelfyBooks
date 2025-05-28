@@ -29,4 +29,5 @@ interface BookMapper<T : Any> {
         rank: Int,
         sellers: List<SellerDomain>
     ): T
+
 }

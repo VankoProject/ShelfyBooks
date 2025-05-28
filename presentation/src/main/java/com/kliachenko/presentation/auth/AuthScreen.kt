@@ -27,9 +27,7 @@ fun AuthScreen(
     val activity = LocalContext.current as Activity
     val coroutineScope = rememberCoroutineScope()
 
-    val navigateToCategories = {
-        navigation.navigateToCategories()
-    }
+    val navigateToCategories = { navigation.navigateToCategories() }
 
     val onSignIn: () -> Unit = {
         viewModel.dismissDialog()

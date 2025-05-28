@@ -59,7 +59,7 @@ interface BookUi {
                 ?: stringResource(id = R.string.no_description_available)
 
             Row(
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier.padding(all = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
@@ -111,7 +111,7 @@ fun BookAuthor(author: String, modifier: Modifier = Modifier) {
             overflow = TextOverflow.Ellipsis,
             fontSize = 10.sp,
             lineHeight = 10.sp,
-            fontWeight = FontWeight.Light
+            fontWeight = FontWeight.Normal
         )
     }
 }
@@ -129,7 +129,9 @@ fun BookPublisher(publisher: String, modifier: Modifier = Modifier) {
             text = publisher,
             fontSize = 10.sp,
             lineHeight = 10.sp,
-            fontWeight = FontWeight.Light
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            fontWeight = FontWeight.Normal
         )
     }
 }
