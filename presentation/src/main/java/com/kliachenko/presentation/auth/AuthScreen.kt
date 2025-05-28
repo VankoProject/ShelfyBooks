@@ -9,9 +9,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kliachenko.presentation.navigation.AppGraph
 import com.kliachenko.presentation.navigation.Navigation
-import com.kliachenko.presentation.navigation.NavigationState
 import kotlinx.coroutines.launch
 
 @SuppressLint("ContextCastToActivity")

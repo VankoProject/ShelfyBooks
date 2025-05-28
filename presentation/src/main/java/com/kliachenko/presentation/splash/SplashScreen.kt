@@ -29,9 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kliachenko.presentation.R
-import com.kliachenko.presentation.navigation.AppGraph
 import com.kliachenko.presentation.navigation.Navigation
-import com.kliachenko.presentation.navigation.NavigationState
 
 @Composable
 fun SplashScreen(
@@ -45,8 +43,10 @@ fun SplashScreen(
         when (isAuthorized) {
             AuthState.Authorized ->
                 navigation.navigateToCategories()
+
             AuthState.Unauthorized ->
                 navigation.navigateToAuth()
+
             else -> {}
         }
     }
@@ -69,7 +69,8 @@ fun SplashScreenContent() {
             Image(
                 painter =
                 rememberVectorPainter(
-                    image = ImageVector.vectorResource(id = R.drawable.shelfybooks_logo)),
+                    image = ImageVector.vectorResource(id = R.drawable.shelfybooks_logo)
+                ),
                 contentDescription = stringResource(R.string.logo),
                 modifier = Modifier.size(128.dp)
             )
