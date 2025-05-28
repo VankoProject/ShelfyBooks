@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kliachenko.presentation.navigation.AppGraph
+import com.kliachenko.presentation.navigation.Navigation
 import com.kliachenko.presentation.navigation.NavigationState
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AuthScreen(
     googleIdToken: ProvideGoogleIdToken,
-    navigation: NavigationState
+    navigation: Navigation.ToCategoriesScreen
 ) {
 
     val viewModel: AuthViewModel = hiltViewModel()
@@ -25,6 +26,10 @@ fun AuthScreen(
     val dialogUiState by viewModel.dialogUiState.collectAsState()
     val activity = LocalContext.current as Activity
     val coroutineScope = rememberCoroutineScope()
+
+    val navigateToCategories = {
+        navigation.navigateToCategories()
+    }
 
     val onSignIn: () -> Unit = {
         viewModel.dismissDialog()
@@ -34,7 +39,7 @@ fun AuthScreen(
 
                 override fun mapSuccess(data: String) {
                     viewModel.signInWithGoogle(data) {
-                        navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
+                        navigateToCategories.invoke()
                     }
                 }
 

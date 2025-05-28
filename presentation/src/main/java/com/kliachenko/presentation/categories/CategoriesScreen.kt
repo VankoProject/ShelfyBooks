@@ -7,12 +7,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.kliachenko.presentation.navigation.AppGraph
-import com.kliachenko.presentation.navigation.NavigationState
+import com.kliachenko.presentation.navigation.Navigation
 
 @Composable
 fun CategoriesScreen(
-    navigation: NavigationState
+    navigation: Navigation.ToBooksScreen
 ) {
 
     val context = LocalContext.current
@@ -28,11 +27,7 @@ fun CategoriesScreen(
     uiState.Show(
         onRetry = { viewModel.load() },
         onItemClick = { categoryId, categoryName ->
-            navigation.navigate(
-                graph = AppGraph.MainGraph.BooksGraph.Books(
-                    categoryId, categoryName
-                )
-            )
+            navigation.navigateToBooksWithArgs(categoryId, categoryName)
         })
 
 }

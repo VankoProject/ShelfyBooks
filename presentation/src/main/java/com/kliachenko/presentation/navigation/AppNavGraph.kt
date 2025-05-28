@@ -15,7 +15,6 @@ import com.kliachenko.presentation.navigation.NavGraphKeys.SELLER_LINK
 
 @Composable
 fun AppNavGraph(
-    modifier: Modifier,
     navController: NavHostController,
     startDestination: String,
     splashScreenContent: @Composable () -> Unit,

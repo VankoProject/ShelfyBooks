@@ -30,11 +30,15 @@ fun BooksScreen(
         viewModel.load(categoryId, categoryName)
     }
 
+    val navigateBackToCategories = {
+        navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
+    }
+
     uiState.Show(
         buttonUiState = buttonState,
         dialogUiState = dialogState,
         categoryName = displayCategoryName,
-        navigate = { navigation.popBackStack() },
+        navigate = navigateBackToCategories,
         onRetry = { viewModel.load(categoryId, categoryName) },
         onSellersClick = { sellers ->
             viewModel.sellers(sellers = sellers) { name, url ->

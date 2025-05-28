@@ -2,7 +2,6 @@ package com.kliachenko.presentation.webView
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.kliachenko.domain.core.HandleError
 import com.kliachenko.presentation.core.HandleWebViewException
 import com.kliachenko.presentation.navigation.NavGraphKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +12,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SellerWebViewModel @Inject constructor(
-    private val handleError: HandleError<String>,
     private val handleWebViewException: HandleWebViewException,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -22,19 +20,19 @@ class SellerWebViewModel @Inject constructor(
     val uiState: StateFlow<SellerWebViewUiState> = _uiState.asStateFlow()
 
     private val sellerLink = savedStateHandle.get<String>(NavGraphKeys.SELLER_LINK) ?: ""
+    private val pageTitle = savedStateHandle.get<String>(NavGraphKeys.PAGE_TITLE) ?: ""
 
     fun loadUrl(sellerLink: String) {
         _uiState.value = SellerWebViewUiState.Progress
-        try {
-            _uiState.value =
-                SellerWebViewUiState.SuccessSellerWebContent(sellerLink) { errorCode, description ->
-                    val message = handleWebViewException.handle(errorCode, description)
-                    _uiState.value = SellerWebViewUiState.Error(message)
-                }
-        } catch (e: Exception) {
-            val errorMessage = handleError.handle(e)
-            _uiState.value = SellerWebViewUiState.Error(errorMessage)
-        }
+
+        _uiState.value = SellerWebViewUiState.SuccessSellerWebContent(
+            pageTitle = pageTitle,
+            link = sellerLink,
+            onError = { code, description ->
+                val message = handleWebViewException.handle(code, description)
+                _uiState.value = SellerWebViewUiState.Error(message)
+            }
+        )
     }
 
     fun retry() {

@@ -1,11 +1,5 @@
 package com.kliachenko.presentation.webView
 
-import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.kliachenko.presentation.R
 
 interface SellerWebViewUiState {
@@ -42,11 +35,10 @@ interface SellerWebViewUiState {
 
     data class SuccessSellerWebContent(
         private val pageTitle: String,
-        val onError: (errorCode: Int?, description: CharSequence?) -> Unit,
+        private val link: String,
+        private val onError: (errorCode: Int?, description: CharSequence?) -> Unit
+    ) : SellerWebViewUiState {
 
-        ) : SellerWebViewUiState {
-
-        @SuppressLint("SetJavaScriptEnabled")
         @Composable
         override fun Show(
             modifier: Modifier,
@@ -57,42 +49,12 @@ interface SellerWebViewUiState {
             onPageFinished: () -> Unit,
             onError: (errorCode: Int?, description: CharSequence?) -> Unit
         ) {
-            AndroidView(
+            SellerWebViewContent(
                 modifier = modifier,
-                factory = { context ->
-                    WebView(context).apply {
-                        settings.javaScriptEnabled = true
-                        webViewClient = object : WebViewClient() {
-                            override fun onReceivedError(
-                                view: WebView?,
-                                request: WebResourceRequest?,
-                                error: WebResourceError?
-                            ) {
-                                super.onReceivedError(view, request, error)
-                                if (request?.isForMainFrame == true) {
-                                    onError.invoke(
-                                        error?.errorCode, error?.description
-                                    )
-                                }
-                            }
-
-                            override fun onPageStarted(
-                                view: WebView?,
-                                url: String?,
-                                favicon: Bitmap?
-                            ) {
-                                super.onPageStarted(view, url, favicon)
-                                onPageStarted.invoke()
-                            }
-
-                            override fun onPageFinished(view: WebView?, url: String?) {
-                                super.onPageFinished(view, url)
-                                onPageFinished()
-                            }
-                        }
-                        loadUrl(link)
-                    }
-                }
+                link = this.link,
+                onWebViewError = this.onError,
+                onPageStarted = onPageStarted,
+                onPageFinished = onPageFinished
             )
         }
     }

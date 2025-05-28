@@ -30,11 +30,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kliachenko.presentation.R
 import com.kliachenko.presentation.navigation.AppGraph
+import com.kliachenko.presentation.navigation.Navigation
 import com.kliachenko.presentation.navigation.NavigationState
 
 @Composable
 fun SplashScreen(
-    navigation: NavigationState
+    navigation: Navigation.SplashNavigation
 ) {
 
     val viewModel: SplashViewModel = hiltViewModel()
@@ -43,9 +44,9 @@ fun SplashScreen(
     LaunchedEffect(key1 = isAuthorized) {
         when (isAuthorized) {
             AuthState.Authorized ->
-                navigation.navigateAndReplace(AppGraph.MainGraph.CategoriesGraph.Categories)
+                navigation.navigateToCategories()
             AuthState.Unauthorized ->
-                navigation.navigateAndReplace(AppGraph.AuthGraph.Auth)
+                navigation.navigateToAuth()
             else -> {}
         }
     }
