@@ -2,7 +2,9 @@ package com.kliachenko.presentation.auth
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -25,11 +27,19 @@ interface ProvideGoogleIdToken {
                     request = request,
                     context = activity
                 )
-                val token = (result.credential as? GoogleIdTokenCredential)?.idToken
-                if (token != null)
-                    TokenResult.Success(token)
-                else
-                    TokenResult.Canceled
+                val credential = result.credential
+                when (credential) {
+                    is CustomCredential -> {
+                        if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+                            val google = GoogleIdTokenCredential.createFrom(credential.data)
+                            val idToken = google.idToken
+                            TokenResult.Success(idToken)
+                        } else {
+                            TokenResult.Error(IllegalStateException("Unsupported CustomCredential type: ${credential.type}"))
+                        }
+                    }
+                    else -> TokenResult.Error(IllegalStateException("Unsupported credential: ${credential::class.java.name}"))
+                }
 
             } catch (e: androidx.credentials.exceptions.GetCredentialException) {
                 val hasInternet = handleInternet.hasInternet()

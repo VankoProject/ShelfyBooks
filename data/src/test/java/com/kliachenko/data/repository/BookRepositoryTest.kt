@@ -315,10 +315,6 @@ private class FakeSellersCacheDataSource : SellersCacheDataSource.Save {
         actualSellers = sellers
     }
 
-    fun cacheEmpty() {
-        actualSellers = emptyList()
-    }
-
     fun cacheNotEmpty() {
         actualSellers = listOf(
             SellerLinkCache(
